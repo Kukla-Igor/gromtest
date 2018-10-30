@@ -1,4 +1,4 @@
-package Lesson1;
+package lesson1;
 
 public class SecondProgram {
     public static void main(String[] args) {
