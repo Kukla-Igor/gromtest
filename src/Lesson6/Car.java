@@ -2,8 +2,6 @@ package Lesson6;
 
 public class Car {
 
-    //test
-
     int price;
     int yearOfManufacturing;
     String color;
