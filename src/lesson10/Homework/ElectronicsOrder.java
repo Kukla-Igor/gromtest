@@ -19,17 +19,19 @@ public class ElectronicsOrder extends Order {
     @Override
     public void calculatePrice() {
         double shippedPrice;
-        double totalPrice = getBasePrice();
+        double totalPrice;
 
         if (getShipToCity() == "Kiev" || getShipToCity() == "Odessa" )
             shippedPrice = 0.1 * getBasePrice();
         else
             shippedPrice = 0.15 * getBasePrice();
 
+        totalPrice = shippedPrice + getBasePrice();
 
         if (getBasePrice() > 1000)
-            totalPrice *= 0.95;
+            setTotalPrice(totalPrice * 0.95);
+        else
+            setTotalPrice(totalPrice);
 
-        setTotalPrice(shippedPrice + totalPrice);
     }
 }
