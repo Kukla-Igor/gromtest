@@ -12,7 +12,7 @@ public class FurnitureOrder extends Order {
 
     @Override
     public void validateOrder() {
-        if (getShipFromCity() == "Kiev" || getShipFromCity() == "Lvov" ||  getBasePrice() >= 500 || getCustomerOwned().getName() != "Test")
+        if ((getShipFromCity() == "Kiev" || getShipFromCity() == "Lvov") &&  getBasePrice() >= 500 && getCustomerOwned().getName() != "Test")
             calculatePrice();
 
     }
