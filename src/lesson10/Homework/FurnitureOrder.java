@@ -22,9 +22,9 @@ public class FurnitureOrder extends Order {
         double totalPrice;
 
         if (getTotalPrice() < 5000)
-            totalPrice = getTotalPrice() + 0.05 * getTotalPrice();
+            totalPrice = getBasePrice() + 0.05 * getBasePrice();
         else
-            totalPrice = getTotalPrice() + 0.02 * getTotalPrice();
+            totalPrice = getBasePrice() + 0.02 * getBasePrice();
 
         setTotalPrice(totalPrice);
     }
