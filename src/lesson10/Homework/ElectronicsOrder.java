@@ -20,15 +20,15 @@ public class ElectronicsOrder extends Order {
     public void calculatePrice() {
         double shippedPrice;
         double totalPrice = getBasePrice();
-
-        if (getBasePrice() > 1000)
-            totalPrice *= 0.95 ;
-
+        
 
         if (getShipToCity() == "Kiev" || getShipToCity() == "Odessa" )
             shippedPrice = 0.1 * getBasePrice();
         else
             shippedPrice = 0.15 * getBasePrice();
+
+        if (getBasePrice() > 1000)
+            totalPrice *= 0.95 ;
 
         setTotalPrice(shippedPrice + totalPrice);
 
