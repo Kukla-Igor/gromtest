@@ -3,22 +3,22 @@ package lesson10.Homework;
 import java.util.Date;
 
 public class FurnitureOrder extends Order {
-    String furnitureCode;
+   private String furnitureCode;
 
-    public FurnitureOrder(String itemName, Date dateCreate, String shipFromCity, String shipToCity, int basePrice, Customer customerOwned, String furnitureCode) {
-        super(itemName, dateCreate, shipFromCity, shipToCity, basePrice, customerOwned);
+    public FurnitureOrder(String itemName, Date dateCreated, String shipFromCity, String shipToCity, int basePrice, Customer customerOwned, String furnitureCode) {
+        super(itemName, dateCreated, shipFromCity, shipToCity, basePrice, customerOwned);
         this.furnitureCode = furnitureCode;
     }
 
     @Override
-    void validateOrder() {
+    public void validateOrder() {
         if (getShipFromCity() == "Kiev" || getShipFromCity() == "Lvov" ||  getBasePrice() >= 500 || getCustomerOwned().getName() != "Test")
             calculatePrice();
 
     }
 
     @Override
-    void calculatePrice() {
+    public void calculatePrice() {
         double totalPrice;
 
         if (getTotalPrice() < 5000)

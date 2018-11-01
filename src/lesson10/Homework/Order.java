@@ -4,7 +4,7 @@ import java.util.Date;
 
 public abstract class Order {
     private String itemName;
-    private Date dateCreate;
+    private Date dateCreated;
     private Date dateConfirmed;
     private Date dateShipped;
     private String shipFromCity;
@@ -15,15 +15,15 @@ public abstract class Order {
 
     public Order(String itemName, Date dateCreate, String shipFromCity, String shipToCity, int basePrice, Customer customerOwned) {
         this.itemName = itemName;
-        this.dateCreate = dateCreate;
+        this.dateCreated = dateCreate;
         this.shipFromCity = shipFromCity;
         this.shipToCity = shipToCity;
         this.basePrice = basePrice;
         this.customerOwned = customerOwned;
     }
 
-    abstract void validateOrder();
-    abstract void calculatePrice();
+    public abstract void validateOrder();
+    public abstract void calculatePrice();
 
     void confirmShipping() {
         if (dateShipped == null)
@@ -59,8 +59,8 @@ public abstract class Order {
         return itemName;
     }
 
-    public Date getDateCreate() {
-        return dateCreate;
+    public Date getDateCreated() {
+        return dateCreated;
     }
 
     public String getShipFromCity() {

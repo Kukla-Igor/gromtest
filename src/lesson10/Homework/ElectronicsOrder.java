@@ -3,21 +3,21 @@ package lesson10.Homework;
 import java.util.Date;
 
 public class ElectronicsOrder extends Order {
-    int guaranteeMonth;
+    private int guaranteeMonths;
 
-    public ElectronicsOrder(String itemName, Date dateCreate, String shipFromCity, String shipToCity, int basePrice, Customer customerOwned, int guaranteeMonth) {
-        super(itemName, dateCreate, shipFromCity, shipToCity, basePrice, customerOwned);
-        this.guaranteeMonth = guaranteeMonth;
+    public ElectronicsOrder(String itemName, Date dateCreated, String shipFromCity, String shipToCity, int basePrice, Customer customerOwned, int guaranteeMonth) {
+        super(itemName, dateCreated, shipFromCity, shipToCity, basePrice, customerOwned);
+        this.guaranteeMonths = guaranteeMonths;
     }
 
     @Override
-    void validateOrder() {
+    public void validateOrder() {
         if (getShipFromCity() == "Kiev" || getShipFromCity() == "Odessa" || getShipFromCity() == "Dnepr" || getShipFromCity() == "Kharkov" || getBasePrice() >= 100 || getCustomerOwned().getGender() == "Female" || getShipToCity() == "Kiev" || getShipToCity() == "Odessa" || getShipToCity() == "Dnepr" || getShipToCity() == "Kharkov")
             calculatePrice();
     }
 
     @Override
-    void calculatePrice() {
+    public void calculatePrice() {
         double shippedPrice;
         double totalPrice;
 
