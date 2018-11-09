@@ -9,7 +9,7 @@ public class GoogleAPI implements API {
 
     @Override
     public Room[] findRooms(int price, int persons, String city, String hotel) {
-        int lenght = rooms.length;
+        int lenght = 0;
 
         for (Room room : rooms)
             if (room.getPrice() == price && room.getPersons() == persons && room.getCityName() == city && room.getHotelName() == hotel){                lenght++;
