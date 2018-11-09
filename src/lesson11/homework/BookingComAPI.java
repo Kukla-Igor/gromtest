@@ -1,0 +1,51 @@
+package lesson11.homework;
+
+public class BookingComAPI implements API {
+    Room[] rooms;
+
+    public BookingComAPI(Room[] rooms) {
+        this.rooms = rooms;
+    }
+
+    @Override
+    public Room[] findRooms(int price, int persons, String city, String hotel) {
+        int lenght = rooms.length;
+
+        for (Room room : rooms) {
+            if (room.getHotelName() == null)
+                lenght--;
+        }
+
+        int i = 0;
+        Room[] allRooms = new Room[lenght];
+
+        for (Room room : rooms)
+            if (room.getPrice() > price - 100 && room.getPrice() < price + 100 && room.getPersons() == persons && room.getCityName() == city && room.getHotelName() == hotel){
+                allRooms[i] = room;
+                i++;
+            }
+        return allRooms;
+    }
+
+    @Override
+    public Room[] getAll() {
+        int lenght = rooms.length;
+
+        for (Room room : rooms) {
+            if (room.getHotelName() == null)
+                lenght--;
+        }
+
+        Room[] allRooms = new Room[lenght];
+        int i = 0;
+
+        for (Room room : rooms) {
+            if (room.getHotelName() != null) {
+                allRooms[i] = room;
+                i++;
+            }
+        }
+
+        return allRooms;
+    }
+}
