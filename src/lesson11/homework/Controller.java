@@ -26,13 +26,14 @@ public class Controller {
     }
 
     Room[] check (API api1, API api2){
-        Room[] rooms1 = new Room[api1.getAll().length];
-        Room[] rooms2 = new Room[api2.getAll().length];
+        Room[] rooms1 = api1.getAll();
+        Room[] rooms2  = api2.getAll();
+
         int length = 0;
         int big = rooms2.length;
         int small = rooms1.length;
 
-        if (rooms1.length > rooms2.length) {
+        if (small > big) {
             big = rooms1.length;
             small = rooms2.length;
         }
