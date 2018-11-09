@@ -12,8 +12,7 @@ public class GoogleAPI implements API {
         int lenght = rooms.length;
 
         for (Room room : rooms)
-            if (room.getPrice() > price - 100 && room.getPrice() < price + 100 && room.getPersons() == persons && room.getCityName() == city && room.getHotelName() == hotel){
-                lenght++;
+            if (room.getPrice() == price && room.getPersons() == persons && room.getCityName() == city && room.getHotelName() == hotel){                lenght++;
             }
 
         int i = 0;
