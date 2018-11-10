@@ -22,18 +22,24 @@ public class UkrainianBankSystem implements BankSystem {
 
     @Override
     public void transferMoney(User fromUser, User toUser, int amount) {
-        if (!checkWithdraw(fromUser, amount) || amount > toUser.getBank().getLimitOfFunding())
+        if (!checkWithdraw(fromUser, amount) || amount > toUser.getBank().getLimitOfFunding()) {
+            System.err.println("Can`t transfer money");
             return;
+        }
 
 
         fromUser.setBalance(fromUser.getBalance() - amount - amount * fromUser.getBank().getCommission(amount));
 
-        toUser.setBalance(amount + amount * fromUser.getBank().getCommission(amount) + toUser.getBalance());
+        toUser.setBalance(amount + toUser.getBalance());
 
     }
 
     @Override
     public void paySalary(User user) {
+        if(user.getSalary() > user.getBank().getLimitOfFunding()) {
+            System.err.println("Can`t pay");
+            return;
+        }
         user.setBalance(user.getBalance() + user.getSalary());
 
     }
