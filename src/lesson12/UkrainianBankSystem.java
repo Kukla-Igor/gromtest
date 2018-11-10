@@ -13,18 +13,18 @@ public class UkrainianBankSystem implements BankSystem {
 
     @Override
     public void fund(User user, int amount) {
-        if(amount > user.getBank().getLimitOfFunding()) {
-            printWithdrawalErrorMsg(amount, user);
+        if(amount >= user.getBank().getLimitOfFunding()) {
+            System.err.println("Can`t found money" + amount + " to user" + user.toString());
             return;
         }
-        user.setBalance(amount + user.getBalance() - amount*user.getBank().getCommission(amount));
+        user.setBalance(amount + user.getBalance() - amount);
     }
 
     @Override
     public void transferMoney(User fromUser, User toUser, int amount) {
         if (!checkWithdraw(fromUser, amount))
             return;
-        fund(fromUser, amount);
+  //      fund(fromUser, amount);
 
         fromUser.setBalance(fromUser.getBalance() - amount - amount * fromUser.getBank().getCommission(amount));
 
