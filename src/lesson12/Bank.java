@@ -25,9 +25,9 @@ public abstract class  Bank {
 
     public abstract double getMonthlyRate();
 
-    public abstract double getCommission(int amount);
+    public abstract double getCommission (int amount);
 
-    public double moneyPaidMonthlyForSalary() {
+    public double moneyPaidMonthlyForSalary(){
         return numberOfEmployees * avrSalaryOfEmployee;
     }
 
