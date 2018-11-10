@@ -1,0 +1,58 @@
+package lesson12;
+
+public class UkrainianBankSystem implements BankSystem {
+    @Override
+    public void withdraw(User user, int amount) {
+
+        if (!checkWithdraw(user, amount))
+            return;
+
+        user.setBalance(user.getBalance() - amount - amount * user.getBank().getCommission(amount));
+
+     }
+
+    @Override
+    public void fund(User user, int amount) {
+        if(amount > user.getBank().getLimitOfFunding()) {
+            printWithdrawalErrorMsg(amount, user);
+            return;
+        }
+        user.setBalance(amount + user.getBalance());
+    }
+
+    @Override
+    public void transferMoney(User fromUser, User toUser, int amount) {
+        if (!checkWithdraw(fromUser, amount))
+            return;
+        fund(fromUser, amount);
+
+        fromUser.setBalance(fromUser.getBalance() - amount - amount * fromUser.getBank().getCommission(amount));
+
+        fund(toUser, amount);
+
+
+    }
+
+    @Override
+    public void pauSalary(User user) {
+        user.setBalance(user.getBalance() + user.getSalary());
+
+    }
+
+    private void printWithdrawalErrorMsg(int amount, User user){
+        System.err.println("Can`t withdrawal money" + amount + " from user" + user.toString());
+    }
+
+    private boolean checkWithdraw(User user, int amount){
+        return checkWithdrawLimits(user, amount, user.getBank().getLimitOfWithdrawal()) && checkWithdrawLimits(user, amount, user.getBalance());
+
+    }
+
+    private boolean checkWithdrawLimits(User user, int amount, double limit){
+        if (amount + user.getBank().getCommission(amount) > limit){
+            printWithdrawalErrorMsg(amount, user);
+            return false;
+        }
+        return true;
+    }
+}
