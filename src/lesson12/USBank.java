@@ -16,7 +16,7 @@ public class USBank extends Bank {
     @Override
     public int getLimitOfFunding() {
         if (getCurrency() == Currency.EUR)
-            return 1000;
+            return 10000;
         return Integer.MAX_VALUE;
 
     }
