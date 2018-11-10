@@ -17,7 +17,7 @@ public class UkrainianBankSystem implements BankSystem {
             printWithdrawalErrorMsg(amount, user);
             return;
         }
-        user.setBalance(amount + user.getBalance());
+        user.setBalance(amount + user.getBalance() - amount*user.getBank().getCommission(amount));
     }
 
     @Override
