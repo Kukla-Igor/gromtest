@@ -20,16 +20,23 @@ public abstract class  Bank {
     }
 
     public abstract int getLimitOfWithdrawal();
+
     public abstract int getLimitOfFunding();
+
     public abstract double getMonthlyRate();
+
     public abstract double getCommission(int amount);
-    public double moneyPaidMonthlyForSalary(){
+
+    public double moneyPaidMonthlyForSalary() {
         return numberOfEmployees * avrSalaryOfEmployee;
     }
 
-
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getBankCountry() {
@@ -56,6 +63,14 @@ public abstract class  Bank {
         this.numberOfEmployees = numberOfEmployees;
     }
 
+    public double getAvrSalaryOfEmployee() {
+        return avrSalaryOfEmployee;
+    }
+
+    public void setAvrSalaryOfEmployee(double avrSalaryOfEmployee) {
+        this.avrSalaryOfEmployee = avrSalaryOfEmployee;
+    }
+
     public long getRating() {
         return rating;
     }
@@ -70,13 +85,5 @@ public abstract class  Bank {
 
     public void setTotalCapital(long totalCapital) {
         this.totalCapital = totalCapital;
-    }
-
-    public double getAvrSalaryOfEmployee() {
-        return avrSalaryOfEmployee;
-    }
-
-    public void setAvrSalaryOfEmployee(double avrSalaryOfEmployee) {
-        this.avrSalaryOfEmployee = avrSalaryOfEmployee;
     }
 }
