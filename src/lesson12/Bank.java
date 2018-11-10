@@ -3,7 +3,7 @@ package lesson12;
 public abstract class  Bank {
     private long id;
     private String bankCountry;
-    private lesson12.Currency currency;
+    private Currency currency;
     private int numberOfEmployee;
     private double avrSalaryOfEmployee;
     private long rating;
