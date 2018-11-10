@@ -22,7 +22,7 @@ public class UkrainianBankSystem implements BankSystem {
 
     @Override
     public void transferMoney(User fromUser, User toUser, int amount) {
-        if (!checkWithdraw(fromUser, amount) || amount > toUser.getBank().getLimitOfFunding()) {
+        if (!checkWithdraw(fromUser, amount) || amount > toUser.getBank().getLimitOfFunding() || fromUser.getBank().getCurrency() != toUser.getBank().getCurrency()) {
             System.err.println("Can`t transfer money");
             return;
         }
