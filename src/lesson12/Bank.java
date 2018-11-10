@@ -52,7 +52,7 @@ public abstract class  Bank {
         this.currency = currency;
     }
 
-    public int getNumberOfEmployee() {
+    public int getNumberOfEmployees() {
         return numberOfEmployees;
     }
 
