@@ -1,6 +1,6 @@
 package lesson12;
 
-public abstract class  Bank {
+public abstract class Bank {
     private long id;
     private String bankCountry;
     private Currency currency;
@@ -25,9 +25,9 @@ public abstract class  Bank {
 
     public abstract double getMonthlyRate();
 
-    public abstract double getCommission (int amount);
+    public abstract double getCommission(int amount);
 
-    public double moneyPaidMonthlyForSalary(){
+    public double moneyPaidMonthlyForSalary() {
         return numberOfEmployees * avrSalaryOfEmployee;
     }
 
