@@ -3,7 +3,7 @@ package lesson15.equals;
 import java.util.Objects;
 
 public class File {
-    private int size;
+    private long size;
     private String path;
     private String extension;
 
