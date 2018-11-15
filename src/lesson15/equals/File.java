@@ -3,7 +3,7 @@ package lesson15.equals;
 import java.util.Objects;
 
 public class File {
-    private long size;
+    private int size;
     private String path;
     private String extension;
 
@@ -17,16 +17,32 @@ public class File {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         File file = (File) o;
-        return Objects.equals(path, file.path);
+
+        return path != null ? path.equals(file.path) : file.path == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(path);
+        return path != null ? path.hashCode() : 0;
     }
 
     //    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        File file = (File) o;
+//
+//        return path.equals(file.path);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return path.hashCode();
+//    }
+//    @Override
 //    public boolean equals(Object o) {
 //        if (this == o) return true;
 //        if (o == null || getClass() != o.getClass()) return false;
