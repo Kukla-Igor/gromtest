@@ -43,7 +43,6 @@ public class UserRepository {
             if (users[i] == null) {
             }
              else if (user.getId() == users[i].getId()) {
-                 if (!user.equals(users[i]))
                   return users[i] = user;
               }
         }
