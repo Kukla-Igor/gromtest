@@ -77,9 +77,6 @@ public class Controller {
 
 
 
-    }
-
-
     private void formatsCheck(Storage storage, File file) throws RuntimeException {
 
         for (int i = 0; i < storage.getFormatsSupported().length; i++) {
