@@ -69,7 +69,9 @@ public class Controller {
 
                 if (storageFrom.getFiles()[i].getId() == id) {
                     file = storageFrom.getFiles()[i];
-                    checkAndAdd(storageTo, file);}
+                    checkAndAdd(storageTo, file);
+                    return;
+                }
                 else
                     throw new RuntimeException("файла " + id + "не найдено");
             }
