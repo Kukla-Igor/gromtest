@@ -8,7 +8,7 @@ public class File {
 
     public File(long id, String name, String format, long size) {
         this.id = id;
-        if (name.length() < 10)
+        if (name.length() <= 10)
             this.name = name;
         else
             throw new RuntimeException("Длина имени слишком большая");
