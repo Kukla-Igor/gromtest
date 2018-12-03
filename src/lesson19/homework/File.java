@@ -1,10 +1,10 @@
 package lesson19.homework;
 
 public class File {
-    long id;
-    String name;
-    String format;
-    long size;
+    private long id;
+    private String name;
+    private String format;
+    private long size;
 
     public File(long id, String name, String format, long size) {
         this.id = id;
@@ -44,4 +44,19 @@ public class File {
                 '}';
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public long getSize() {
+        return size;
+    }
 }

@@ -18,8 +18,8 @@ public class Demo {
         Storage storage = new Storage(0, files, formatsSupported, "Ukraine", 200);
         Controller controller = new Controller();
 
-        controller.put(storage, file2);
-        System.out.println(Arrays.toString(storage.files));
+        controller.put(storage, file4);
+        System.out.println(Arrays.toString(storage.getFiles()));
 
       //  controller.delete(storage, file5);
         //System.out.println(Arrays.toString(storage.files));
