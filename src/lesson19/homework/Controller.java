@@ -6,41 +6,7 @@ public class Controller {
 
     public void put(Storage storage, File file) {
 
-        try {
-            formatsCheck(storage, file);
-        } catch (RuntimeException e) {
-            System.err.println("Файл " + file.getId() + " формата " + file.getFormat() + " не может быть добавлен в хранилище " + storage.getId());
-            return;
-        }
-
-        try {
-            idCheck(storage, file);
-        } catch (RuntimeException e) {
-            System.err.println("Файл " + file.getId() + " не может быть добавлен в хранилище " + storage.getId());
-            return;
-        }
-
-
-        try {
-            File[] files = {file};
-            sizeCheck(storage, files);
-        } catch (RuntimeException e) {
-            System.err.println("Файл " + file.getId() + " превышает размер " + storage.getId());
-            return;
-        }
-
-        try {
-            nullCheck(storage);
-        } catch (RuntimeException e) {
-            System.err.println("Файл " + file.getId() + " не может быть добавлен в заполненое хранилище " + storage.getId());
-            return;
-        }
-
-
-        for (int i = 0; i < storage.getFiles().length; i++) {
-            storage.getFiles()[i] = file;
-        }
-
+        checkAndAdd(storage, file);
     }
 
 
@@ -97,6 +63,23 @@ public class Controller {
         }
     }
 
+    public void tranferFile(Storage storageFrom, Storage storageTo, long id){
+        File file;
+        for (int i = 0; i < storageFrom.getFiles().length; i++){
+            if (storageFrom.getFiles() != null){
+                if (storageFrom.getFiles()[i].getId() == id) {
+                    file = storageFrom.getFiles()[i];
+                    checkAndAdd(storageTo, file);
+                }
+                else
+                    throw new RuntimeException("файла " + id + "не найдено");
+            }
+        }
+
+
+
+    }
+
 
     private void formatsCheck(Storage storage, File file) throws RuntimeException {
 
@@ -149,6 +132,45 @@ public class Controller {
             }
         }
         throw new NullPointerException("Null check error");
+    }
+
+    private void checkAndAdd (Storage storage, File file){
+        try {
+            formatsCheck(storage, file);
+        } catch (RuntimeException e) {
+            System.err.println("Файл " + file.getId() + " формата " + file.getFormat() + " не может быть добавлен в хранилище " + storage.getId());
+            return;
+        }
+
+        try {
+            idCheck(storage, file);
+        } catch (RuntimeException e) {
+            System.err.println("Файл " + file.getId() + " не может быть добавлен в хранилище " + storage.getId());
+            return;
+        }
+
+
+        try {
+            File[] files = {file};
+            sizeCheck(storage, files);
+        } catch (RuntimeException e) {
+            System.err.println("Файл " + file.getId() + " превышает размер " + storage.getId());
+            return;
+        }
+
+        try {
+            nullCheck(storage);
+        } catch (RuntimeException e) {
+            System.err.println("Файл " + file.getId() + " не может быть добавлен в заполненое хранилище " + storage.getId());
+            return;
+        }
+
+
+        for (int i = 0; i < storage.getFiles().length; i++) {
+            storage.getFiles()[i] = file;
+        }
+
+
     }
 
 
