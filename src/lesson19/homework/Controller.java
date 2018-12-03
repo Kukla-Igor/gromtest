@@ -66,11 +66,10 @@ public class Controller {
     public void transferFile(Storage storageFrom, Storage storageTo, long id){
         File file;
         for (int i = 0; i < storageFrom.getFiles().length; i++){
-            if (storageFrom.getFiles() != null){
+
                 if (storageFrom.getFiles()[i].getId() == id) {
                     file = storageFrom.getFiles()[i];
-                    checkAndAdd(storageTo, file);
-                }
+                    checkAndAdd(storageTo, file);}
                 else
                     throw new RuntimeException("файла " + id + "не найдено");
             }
