@@ -63,7 +63,7 @@ public class Controller {
         }
     }
 
-    public void tranferFile(Storage storageFrom, Storage storageTo, long id){
+    public void transferFile(Storage storageFrom, Storage storageTo, long id){
         File file;
         for (int i = 0; i < storageFrom.getFiles().length; i++){
             if (storageFrom.getFiles() != null){
