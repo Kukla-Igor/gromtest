@@ -22,7 +22,8 @@ public class Controller {
 
 
         try {
-            sizeCheck(storage, file);
+            File[] files = {file};
+            sizeCheck(storage, files);
         } catch (RuntimeException e) {
             System.err.println("Файл " + file.getId() + " превышает размер " + storage.getId());
             return;
@@ -56,6 +57,46 @@ public class Controller {
         }
     }
 
+    public void transferAll(Storage storageFrom, Storage storageTo) {
+
+        try {
+            for (int i = 0; i < storageFrom.getFiles().length; i++) {
+                formatsCheck(storageTo, storageFrom.getFiles()[i]);
+            }
+        } catch (RuntimeException e) {
+            System.err.println("формат " + storageFrom + " не поддерживаються хранилищем " + storageTo);
+            return;
+        }
+
+        try {
+            for (int i = 0; i < storageFrom.getFiles().length; i++) {
+                idCheck(storageTo, storageFrom.getFiles()[i]);
+            }
+        } catch (RuntimeException e) {
+            System.err.println("В хранилище " + storageFrom + " уже есть файлы с id из " + storageTo);
+            return;
+        }
+
+        try {
+            for (int i = 0; i < storageFrom.getFiles().length; i++) {
+                sizeCheck(storageTo, storageFrom.getFiles());
+            }
+        } catch (RuntimeException e) {
+            System.err.println("В хранилище " + storageFrom + " не поместяться файлы с id из " + storageTo);
+            return;
+        }
+
+        try {
+
+            for (int i = 0; i < storageFrom.getFiles().length; i++) {
+                nullCheck(storageTo);
+                storageTo.getFiles()[i] = storageFrom.getFiles()[i];
+            }
+        }catch (NullPointerException e){
+            System.err.println("В хранилище " + storageFrom + " неТ свободныъ ячеек для файлов с id из " + storageTo);
+        }
+    }
+
 
     private void formatsCheck(Storage storage, File file) throws RuntimeException {
 
@@ -76,8 +117,11 @@ public class Controller {
         }
     }
 
-    private void sizeCheck(Storage storage, File file) throws RuntimeException {
-        long size = file.getSize();
+    private void sizeCheck(Storage storage, File[] files) throws RuntimeException {
+        long size = 0;
+        for (int i = 0; i < files.length; i++) {
+            size += files[i].getSize();
+        }
         for (int i = 0; i < storage.getFiles().length; i++) {
             if (storage.getFiles()[i] != null) {
                 size += storage.getFiles()[i].getSize();
