@@ -12,7 +12,7 @@ public class Demo {
         File file4 = new File(3, "file4", "avi", 22);
         File file5 = new File(1, "file5", "avi", 1);
 
-        File[] files = {null, file2, file3, file1};
+        File[] files = {file1, file2, file3, null};
         String[] formatsSupported = {"txt", "png", "jpg", "avi"};
 
         Storage storage = new Storage(0, files, formatsSupported, "Ukraine", 200);

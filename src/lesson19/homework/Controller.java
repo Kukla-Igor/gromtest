@@ -58,25 +58,23 @@ public class Controller {
                 nullCheck(storageTo);
                 storageTo.getFiles()[i] = storageFrom.getFiles()[i];
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.err.println("В хранилище " + storageFrom + " нет свободныъ ячеек для файлов с id из " + storageTo);
         }
     }
 
-    public void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception{
+    public void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception {
         File file;
-        for (int i = 0; i < storageFrom.getFiles().length; i++){
+        for (int i = 0; i < storageFrom.getFiles().length; i++) {
 
-                if (storageFrom.getFiles()[i].getId() == id) {
-                    file = storageFrom.getFiles()[i];
-                    checkAndAdd(storageTo, file);
-                    return;
-                }
-                else
-                    throw new Exception("файла " + id + "не найдено");
-            }
+            if (storageFrom.getFiles()[i].getId() == id) {
+                file = storageFrom.getFiles()[i];
+                checkAndAdd(storageTo, file);
+                return;
+            } else
+                throw new Exception("файла " + id + "не найдено");
         }
-
+    }
 
 
     private void formatsCheck(Storage storage, File file) throws Exception {
@@ -91,7 +89,7 @@ public class Controller {
 
     private void idCheck(Storage storage, File file) throws Exception {
         for (int i = 0; i < storage.getFiles().length; i++) {
-            if (file.equals(storage.getFiles()[i]))  {
+            if (file.equals(storage.getFiles()[i])) {
                 throw new Exception("Id check error");
             }
         }
@@ -132,7 +130,7 @@ public class Controller {
         throw new Exception("Null check error");
     }
 
-    private void checkAndAdd (Storage storage, File file){
+    private void checkAndAdd(Storage storage, File file) {
         try {
             formatsCheck(storage, file);
         } catch (Exception e) {
@@ -165,7 +163,11 @@ public class Controller {
 
 
         for (int i = 0; i < storage.getFiles().length; i++) {
-            storage.getFiles()[i] = file;
+            if (storage.getFiles()[i] == null) {
+                storage.getFiles()[i] = file;
+                return;
+            }
+
         }
 
 
