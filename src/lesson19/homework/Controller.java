@@ -14,7 +14,7 @@ public class Controller {
         try {
             equalsCheck(storage, file);
             for (int i = 0; i < storage.getFiles().length; i++) {
-                if (storage.getFiles()[i].equals(file) && storage.getFiles()[i].hashCode() == file.hashCode()) {
+                if (storage.getFiles()[i].equals(file) && storage.getFiles()[i].hashCode() == file.hashCode() && storage.getFiles()[i].getName() == file.getName()) {
                     storage.getFiles()[i] = null;
                 }
             }
@@ -91,12 +91,12 @@ public class Controller {
 
     private void idCheck(Storage storage, File file) throws Exception {
         for (int i = 0; i < storage.getFiles().length; i++) {
-
             if (file.equals(storage.getFiles()[i]))  {
                 throw new Exception("Id check error");
             }
         }
     }
+
 
     private void sizeCheck(Storage storage, File[] files) throws Exception {
         long size = 0;

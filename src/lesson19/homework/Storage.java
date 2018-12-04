@@ -17,6 +17,8 @@ public class Storage {
         this.storageSize = storageSize;
     }
 
+
+
     @Override
     public String toString() {
         return "Storage{" +
