@@ -23,12 +23,15 @@ public class File {
 
         File file = (File) o;
 
-        return id == file.id;
+        if (id != file.id) return false;
+        return name != null ? name.equals(file.name) : file.name == null;
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 
     @Override

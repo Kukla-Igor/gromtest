@@ -5,8 +5,7 @@ import java.awt.image.RasterFormatException;
 public class Controller {
 
     public void put(Storage storage, File file) {
-        if (file == null)
-            return;
+
 
 
         checkAndAdd(storage, file);
@@ -17,7 +16,7 @@ public class Controller {
         try {
             equalsCheck(storage, file);
             for (int i = 0; i < storage.getFiles().length; i++) {
-                if (storage.getFiles()[i].equals(file) && storage.getFiles()[i].hashCode() == file.hashCode() && storage.getFiles()[i].getName() == file.getName()) {
+                if (storage.getFiles()[i].equals(file) && storage.getFiles()[i].hashCode() == file.hashCode()) {
                     storage.getFiles()[i] = null;
                     return;
                 }
@@ -102,8 +101,10 @@ public class Controller {
 
     private void idCheck(Storage storage, File file) throws Exception {
         for (int i = 0; i < storage.getFiles().length; i++) {
-            if (file.equals(storage.getFiles()[i])) {
-                throw new Exception("Id check error");
+            if (storage.getFiles()[i] != null) {
+                if (file.equals(storage.getFiles()[i])) {
+                    throw new Exception("Id check error");
+                }
             }
         }
     }
@@ -144,6 +145,10 @@ public class Controller {
     }
 
     private void checkAndAdd(Storage storage, File file) {
+
+        if (file == null)
+            return;
+
         try {
             formatsCheck(storage, file);
         } catch (Exception e) {
