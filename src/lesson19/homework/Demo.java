@@ -12,14 +12,14 @@ public class Demo {
         File file4 = new File(3, "file4", "avi", 22);
         File file5 = new File(4, "file5", "avi", 1);
 
-        File[] files = {file1, file2, file3, null};
-        File[] files1 = {null, null, null, null};
+        File[] files = {file5, null, null, null};
+        File[] files1 = {file1, file2, file4, null};
         String[] formatsSupported = {"txt", "png", "jpg", "avi"};
 
         Storage storage = new Storage(0, files, formatsSupported, "Ukraine", 200);
         Controller controller = new Controller();
 
-        Storage storage1 = new Storage(1, files1,  formatsSupported, "Ukraine", 300);
+        Storage storage1 = new Storage(1, files1,  formatsSupported, "Ukraine", 30);
 
        controller.put(storage, file5);
        System.out.println(Arrays.toString(storage.getFiles()));

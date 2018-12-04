@@ -27,9 +27,7 @@ public class Controller {
     public void transferAll(Storage storageFrom, Storage storageTo) {
 
         try {
-            for (int i = 0; i < storageFrom.getFiles().length; i++) {
-                formatsCheck(storageTo, storageFrom.getFiles()[i]);
-            }
+
         } catch (Exception e) {
             System.err.println("формат " + storageTo.getId() + " не поддерживаються хранилищем " + storageFrom.getId());
             return;
@@ -40,7 +38,7 @@ public class Controller {
                 idCheck(storageTo, storageFrom.getFiles()[i]);
             }
         } catch (Exception e) {
-            System.err.println("В хранилище " + storageFrom + " уже есть файлы с id из " + storageTo);
+            System.err.println("В хранилище " + storageFrom.getId() + " уже есть файлы из " + storageTo.getId());
             return;
         }
 
@@ -49,7 +47,7 @@ public class Controller {
                 sizeCheck(storageTo, storageFrom.getFiles());
             }
         } catch (Exception e) {
-            System.err.println("В хранилище " + storageFrom + " не поместяться файлы с id из " + storageTo);
+            System.err.println("В хранилище " + storageFrom.getId() + " не поместяться файлы из " + storageTo.getId());
             return;
         }
 
@@ -60,7 +58,7 @@ public class Controller {
                 storageTo.getFiles()[i] = storageFrom.getFiles()[i];
             }
         } catch (Exception e) {
-            System.err.println("В хранилище " + storageFrom + " нет свободныъ ячеек для файлов с id из " + storageTo);
+            System.err.println("В хранилище " + storageFrom.getId() + " нет свободныъ ячеек для файлов с id из " + storageTo.getId());
         }
     }
 
@@ -81,14 +79,22 @@ public class Controller {
     private void formatsCheck(Storage storage, File file) throws Exception {
 
         for (int i = 0; i < storage.getFormatsSupported().length; i++) {
-            if (storage.getFormatsSupported()[i].equals(file.getFormat())){
-
+            if (file.getFormat().equals(storage.getFormatsSupported()[i])) {
+                return;
             }
-            return;
-
         }
         throw new Exception("Format check error");
+    }
+        private void formatsCheckStorage(Storage storageFrom, Storage storageTo) throws Exception {
 
+            for (int i = 0; i < storageFrom.getFormatsSupported().length; i++) {
+                for (int j = 0; j < storageTo.getFormatsSupported().length; i++) {
+                    if (storageFrom.getFormatsSupported()[i].equals(storageTo.getFormatsSupported()[j])) {
+                        return;
+                    }
+                }
+                throw new Exception("Format check error");
+            }
     }
 
     private void idCheck(Storage storage, File file) throws Exception {
