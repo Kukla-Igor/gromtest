@@ -81,10 +81,13 @@ public class Controller {
     private void formatsCheck(Storage storage, File file) throws Exception {
 
         for (int i = 0; i < storage.getFormatsSupported().length; i++) {
-            if (!storage.getFormatsSupported()[i].equals(file.getFormat())){
-                throw new Exception("Format check error");
+            if (storage.getFormatsSupported()[i].equals(file.getFormat())){
+
             }
+            return;
+
         }
+        throw new Exception("Format check error");
 
     }
 
