@@ -12,19 +12,30 @@ public class Controller {
             formatCheck(storage, file);
         } catch (Exception e) {
             System.out.println("формат файла " + file.getId() + " не поддерживаеться хранилищем " + storage.getId());
+            return;
         }
 
         try {
             sizeCheck(storage, file);
         } catch (Exception e) {
             System.out.println("размер файла " + file.getId() + " не помещаеться в хранилище " + storage.getId());
+            return;
         }
 
         try {
             idCheck(storage, file);
         } catch (Exception e) {
             System.out.println("файл " + file.getId() + " уже есть в хранилище " + storage.getId());
+            return;
         }
+
+        try {
+            nullCheck(storage, file);
+        } catch (Exception e) {
+            System.out.println("для файла " + file.getId() + " нет свободных ячеек в хранилище " + storage.getId());
+            return;
+        }
+
 
         for (int i = 0; i < storage.getFiles().length; i++){
             if (storage.getFiles()[i] == null)
@@ -62,6 +73,16 @@ public class Controller {
                     throw new Exception("Size check error");
             }
         }
+    }
+
+    private static void nullCheck(Storage storage, File file) throws Exception {
+        for (File storageFile : storage.getFiles()) {
+            if (storageFile == null) {
+                return;
+
+            }
+        }
+        throw new Exception("Size check error");
     }
 
 
