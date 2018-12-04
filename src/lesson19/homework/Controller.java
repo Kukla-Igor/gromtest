@@ -6,7 +6,7 @@ public class Controller {
 
     public static void put(Storage storage, File file) {
         if (file == null)
-            return;
+            throw new RuntimeException("Файл не указан");
 
         try {
             formatCheck(storage, file);

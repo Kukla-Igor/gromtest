@@ -19,7 +19,7 @@ public class Demo {
         Storage storage = new Storage(0, files, formatsSupported, "Ukraine", 200);
         Controller controller = new Controller();
 
-        controller.put(storage, file4);
+        controller.put(storage, null);
         System.out.println(Arrays.toString(storage.getFiles()));
 
 
