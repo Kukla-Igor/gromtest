@@ -8,10 +8,6 @@ public class Controller {
         if (file == null)
             return;
 
-        for(int i = 0; i< storage.getFiles().length; i++){
-            if (storage.getFiles()[i] == null)
-                return;
-        }
 
         checkAndAdd(storage, file);
     }
