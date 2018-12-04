@@ -5,6 +5,13 @@ import java.awt.image.RasterFormatException;
 public class Controller {
 
     public void put(Storage storage, File file) {
+        if (file == null)
+            return;
+
+        for(int i = 0; i< storage.getFiles().length; i++){
+            if (storage.getFiles()[i] == null)
+                return;
+        }
 
         checkAndAdd(storage, file);
     }
