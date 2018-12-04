@@ -16,6 +16,7 @@ public class Controller {
             for (int i = 0; i < storage.getFiles().length; i++) {
                 if (storage.getFiles()[i].equals(file) && storage.getFiles()[i].hashCode() == file.hashCode() && storage.getFiles()[i].getName() == file.getName()) {
                     storage.getFiles()[i] = null;
+                    return;
                 }
             }
         } catch (Exception e) {
@@ -30,7 +31,7 @@ public class Controller {
                 formatsCheck(storageTo, storageFrom.getFiles()[i]);
             }
         } catch (Exception e) {
-            System.err.println("формат " + storageFrom + " не поддерживаються хранилищем " + storageTo);
+            System.err.println("формат " + storageTo.getId() + " не поддерживаються хранилищем " + storageFrom.getId());
             return;
         }
 
@@ -80,11 +81,11 @@ public class Controller {
     private void formatsCheck(Storage storage, File file) throws Exception {
 
         for (int i = 0; i < storage.getFormatsSupported().length; i++) {
-            if (file.getFormat().equals(storage.getFormatsSupported()[i])) {
-                return;
+            if (!storage.getFormatsSupported()[i].equals(file.getFormat())){
+                throw new Exception("Format check error");
             }
         }
-        throw new Exception("Format check error");
+
     }
 
     private void idCheck(Storage storage, File file) throws Exception {

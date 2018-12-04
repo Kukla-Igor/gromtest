@@ -10,19 +10,25 @@ public class Demo {
         File file2 = new File(1, "file2", "png", 22);
         File file3 = new File(2, "file3", "jpg", 22);
         File file4 = new File(3, "file4", "avi", 22);
-        File file5 = new File(1, "file5", "avi", 1);
+        File file5 = new File(4, "file5", "avi", 1);
 
         File[] files = {file1, file2, file3, null};
+        File[] files1 = {null, null, null, null};
         String[] formatsSupported = {"txt", "png", "jpg", "avi"};
 
         Storage storage = new Storage(0, files, formatsSupported, "Ukraine", 200);
         Controller controller = new Controller();
 
-        controller.put(storage, file4);
-        System.out.println(Arrays.toString(storage.getFiles()));
+        Storage storage1 = new Storage(1, files1,  formatsSupported, "Ukraine", 300);
 
-      //  controller.delete(storage, file5);
-        //System.out.println(Arrays.toString(storage.files));
+       controller.put(storage, file5);
+       System.out.println(Arrays.toString(storage.getFiles()));
+
+       //controller.delete(storage, file3);
+       //System.out.println(Arrays.toString(storage.getFiles()));
+
+       controller.transferAll(storage, storage1);
+        System.out.println(Arrays.toString(storage1.getFiles()));
 
     }
 }
