@@ -19,8 +19,14 @@ public class Demo {
         Storage storage = new Storage(0, files, formatsSupported, "Ukraine", 200);
         Controller controller = new Controller();
 
-        controller.put(storage, file5);
-        System.out.println(Arrays.toString(storage.getFiles()));
+        try {
+            System.out.println(controller.put(storage, file5));
+            System.out.println(Arrays.toString(storage.getFiles()));
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+
+
 
 
 

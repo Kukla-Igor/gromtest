@@ -4,47 +4,27 @@ import java.awt.image.RasterFormatException;
 
 public class Controller {
 
-    public static void put(Storage storage, File file) {
-        try {
-            nullCheck(file);
-        } catch (Exception e) {
-            System.err.println("файл не задан");
-            return;
-        }
+    public static File put(Storage storage, File file) throws Exception {
 
-        try {
-            formatCheck(storage, file);
-        } catch (Exception e) {
-            System.err.println("формат файла " + file.getId() + " не поддерживаеться хранилищем " + storage.getId());
-            return;
-        }
+        nullCheck(file);
 
-        try {
-            sizeCheck(storage, file);
-        } catch (Exception e) {
-            System.err.println("размер файла " + file.getId() + " не помещаеться в хранилище " + storage.getId());
-            return;
-        }
+        formatCheck(storage, file);
 
-        try {
-            idCheck(storage, file);
-        } catch (Exception e) {
-            System.err.println("файл " + file.getId() + " уже есть в хранилище " + storage.getId());
-            return;
-        }
+        sizeCheck(storage, file);
 
-        try {
-            nullCheck(storage);
-        } catch (Exception e) {
-            System.err.println("для файла " + file.getId() + " нет свободных ячеек в хранилище " + storage.getId());
-            return;
-        }
 
+        idCheck(storage, file);
+
+
+        nullCheck(storage);
 
         for (int i = 0; i < storage.getFiles().length; i++) {
-            if (storage.getFiles()[i] == null)
+            if (storage.getFiles()[i] == null) {
                 storage.getFiles()[i] = file;
+                break;
+            }
         }
+        return file;
     }
 
     private static void formatCheck(Storage storage, File file) throws Exception {
@@ -53,7 +33,7 @@ public class Controller {
                 return;
             }
         }
-        throw new Exception("Format check error");
+        throw new Exception("Формат файла" + file.getId() + " не поддерживаеться хранилищем " + storage.getId());
     }
 
     private static void sizeCheck(Storage storage, File file) throws Exception {
@@ -64,14 +44,14 @@ public class Controller {
             }
         }
         if (size > storage.getStorageSize())
-            throw new Exception("Size check error");
+            throw new Exception("файл" + file.getId() + " не поместиться в хранилище " + storage.getId());
     }
 
     private static void idCheck(Storage storage, File file) throws Exception {
         for (File storageFile : storage.getFiles()) {
             if (storageFile != null) {
                 if (storageFile.getId() == file.getId())
-                    throw new Exception("Size check error");
+                    throw new Exception("файл " + file.getId() + " уже есть в хранилище " + storage.getId());
             }
         }
     }
@@ -83,16 +63,19 @@ public class Controller {
 
             }
         }
-        throw new Exception("Size check error");
+        throw new Exception("В хранилище " + storage.getId() + " нет свободных ячеек");
     }
 
     private static void nullCheck(File file) throws Exception {
+
         if (file == null) {
-            throw new Exception("Size check error");
+            throw new Exception("Файл не задан");
         }
+
     }
 
 }
+
 
 
 
