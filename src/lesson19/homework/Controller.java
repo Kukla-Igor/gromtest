@@ -40,26 +40,19 @@ public class Controller {
 
         sizeCheck(storageTo, storageFrom.getFiles());
 
-        int z = 0;
-        for (int i = 0; i < storageFrom.getFormatsSupported().length; i++) {
-            for (int j = 0; j < storageTo.getFormatsSupported().length; j++) {
-                if (storageFrom.getFormatsSupported()[i].equals(storageTo.getFormatsSupported()[j])) {
-                    z++;
-                    break;
-                }
-            }
+        for (int i = 0; i < storageFrom.getFiles().length; i++){
+            formatCheck(storageTo, storageFrom.getFiles()[i]);
         }
-        if (z == 0)
-            throw new Exception("Формат файлов из хранилища" + storageFrom.getId() + " не поддерживаеться хранилищем " + storageTo.getId());
 
-        int j = 0;
+        int z = 0;
 
         for (int i = 0; i < storageFrom.getFiles().length; i++){
             nullCheck(storageTo);
-            storageFrom.getFiles()[j] = storageTo.getFiles()[i];
-            j++;
+            storageTo.getFiles()[i] = storageFrom.getFiles()[z];
+            z++;
 
         }
+
 
 
     }

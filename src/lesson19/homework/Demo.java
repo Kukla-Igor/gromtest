@@ -9,22 +9,27 @@ public class Demo {
         File file1 = new File(0, "file1", "txt", 22);
         File file2 = new File(1, "file2", "png", 22);
         File file3 = new File(2, "file3", "jpg", 22);
-        File file4 = new File(3, "file4", "avi", 20000);
+        File file4 = new File(3, "file4", "avi", 2);
         File file5 = new File(0, "file5", "avi", 1);
 
-        File[] files = {file1, file2, file3, file4};
+       File[] filesFrom = {file1, file2, file3, file4};
+       File[] filesTo = {null, null, null, null};
 
-        String[] formatsSupported = {"txt", "png", "jpg", "avi"};
+       String[] formatSupportedFrom = {"txt", "png", "jpg", "avi"};
+       String[] formatSupportedTo = {"txt", "png", "jpg", "avi"};
 
-        Storage storage = new Storage(0, files, formatsSupported, "Ukraine", 200);
-        Controller controller = new Controller();
+       Controller controller = new Controller();
+        Storage storageFrom = new Storage(0, filesFrom, formatSupportedFrom, "Ukraine", 200);
+        Storage storageTo = new Storage(1, filesTo, formatSupportedTo, "Ukraine", 200);
 
         try {
-            System.out.println(controller.delete(storage, file4));
-            System.out.println(Arrays.toString(storage.getFiles()));
+            controller.transferAll(storageFrom, storageTo);
+            System.out.println(Arrays.toString(storageFrom.getFiles()));
+            System.out.println(Arrays.toString(storageTo.getFiles()));
         } catch (Exception e){
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
+
 
 
 
