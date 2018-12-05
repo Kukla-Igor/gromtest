@@ -9,7 +9,7 @@ public class Demo {
         File file1 = new File(0, "file1", "txt", 22);
         File file2 = new File(1, "file2", "png", 22);
         File file3 = new File(2, "file3", "jpg", 22);
-        File file4 = new File(3, "file4", "avi", 20);
+        File file4 = new File(3, "file4", "avi", 20000);
         File file5 = new File(0, "file5", "avi", 1);
 
         File[] files = {file1, file2, file3, file4};

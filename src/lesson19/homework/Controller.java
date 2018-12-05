@@ -7,7 +7,8 @@ public class Controller {
     public static File put(Storage storage, File file) throws Exception {
         nullCheck(file);
         formatCheck(storage, file);
-        sizeCheck(storage, file);
+        File[] files = {file};
+        sizeCheck(storage, files);
         idCheck(storage, file);
         nullCheck(storage);
 
@@ -22,7 +23,7 @@ public class Controller {
 
     public static File delete(Storage storage, File file) throws Exception {
         nullCheck(file);
-        for (int i = 0; i < storage.getFiles().length; i++){
+        for (int i = 0; i < storage.getFiles().length; i++) {
             if (file.equals(storage.getFiles()[i])) {
                 storage.getFiles()[i] = null;
                 return file;
@@ -32,6 +33,25 @@ public class Controller {
 
     }
 
+    public static void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
+        for (File file : storageFrom.getFiles()) {
+            idCheck(storageTo, file);
+        }
+
+        sizeCheck(storageTo, storageFrom.getFiles());
+
+        for (int i = 0; i < storageFrom.getFormatsSupported().length; i++) {
+            for (int j = 0; j < storageTo.getFormatsSupported().length; j++) {
+                if (storageFrom.getFormatsSupported()[i].equals(storageTo.getFormatsSupported()[j])) {
+                    break;
+                }
+            }
+        }
+        throw new Exception("Формат файлов из хранилища" + storageFrom.getId() + " не поддерживаеться хранилищем " + storageTo.getId());
+
+
+
+    }
 
 
     private static void formatCheck(Storage storage, File file) throws Exception {
@@ -43,15 +63,19 @@ public class Controller {
         throw new Exception("Формат файла" + file.getId() + " не поддерживаеться хранилищем " + storage.getId());
     }
 
-    private static void sizeCheck(Storage storage, File file) throws Exception {
-        long size = file.getSize();
+    private static void sizeCheck(Storage storage, File[] files) throws Exception {
+
+        long size = 0;
+        for(File file : files){
+            size += file.getSize();
+        }
         for (File storageFile : storage.getFiles()) {
             if (storageFile != null) {
                 size += storageFile.getSize();
             }
         }
         if (size > storage.getStorageSize())
-            throw new Exception("файл" + file.getId() + " не поместиться в хранилище " + storage.getId());
+            throw new Exception("не достаточно места в хранилище " + storage.getId());
     }
 
     private static void idCheck(Storage storage, File file) throws Exception {
