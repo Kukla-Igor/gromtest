@@ -5,8 +5,10 @@ import java.awt.image.RasterFormatException;
 public class Controller {
 
     public static void put(Storage storage, File file) {
-        if (file == null)
-            throw new RuntimeException("Файл не указан");
+        if (file == null) {
+            System.out.println("формат файла " + file.getId() + " не поддерживаеться хранилищем " + storage.getId());
+            return;
+        }
 
         try {
             formatCheck(storage, file);
