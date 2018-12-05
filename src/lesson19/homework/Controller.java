@@ -44,14 +44,30 @@ public class Controller {
             formatCheck(storageTo, storageFrom.getFiles()[i]);
         }
 
+        int nullFrom = storageFrom.getFiles().length;
+        int nullTo = storageTo.getFiles().length;
         int z = 0;
 
-        for (int i = 0; i < storageFrom.getFiles().length; i++){
-            nullCheck(storageTo);
-            storageTo.getFiles()[i] = storageFrom.getFiles()[z];
-            z++;
-
+        for (File storageFile : storageFrom.getFiles()){
+            if (storageFile == null)
+                nullFrom--;
         }
+
+        for (File storageFile : storageTo.getFiles()){
+            if (storageFile != null)
+                nullTo--;
+        }
+
+        if (nullTo < nullFrom)
+            throw new Exception("В хранилище " + storageTo.getId() + " не достаточно свободных ячеек");
+
+        for (int i = 0; i < storageTo.getFiles().length; i++){
+            if (storageTo.getFiles()[i] == null) {
+                storageTo.getFiles()[i] = storageFrom.getFiles()[z];
+                z++;
+            }
+        }
+
 
 
 

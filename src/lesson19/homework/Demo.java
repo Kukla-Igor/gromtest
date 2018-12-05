@@ -13,7 +13,7 @@ public class Demo {
         File file5 = new File(4, "file5", "avi", 1);
 
        File[] filesFrom = {file1, file2, file3, file4};
-       File[] filesTo = {file5, null, null, null};
+       File[] filesTo = {null, null, null, null};
 
        String[] formatSupportedFrom = {"txt", "png", "jpg", "avi"};
        String[] formatSupportedTo = {"txt", "png", "jpg", "avi"};
