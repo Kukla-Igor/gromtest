@@ -71,7 +71,24 @@ public class Controller {
 
 
 
+
     }
+
+    public static File transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception {
+        File file = null;
+        for (File storageFile : storageFrom.getFiles()){
+            if (storageFile != null) {
+                if (storageFile.getId() == id) {
+                    file = storageFile;
+                }
+            }
+        }
+
+
+        return put(storageTo, file);
+
+    }
+
 
 
     private static void formatCheck(Storage storage, File file) throws Exception {
