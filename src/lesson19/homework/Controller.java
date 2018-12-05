@@ -5,8 +5,12 @@ import java.awt.image.RasterFormatException;
 public class Controller {
 
     public static void put(Storage storage, File file) {
-        if (file == null)
-            throw new RuntimeException("Файл не указан");
+        try {
+            nullCheck(file);
+        } catch (Exception e) {
+            System.err.println("файл не задан");
+            return;
+        }
 
         try {
             formatCheck(storage, file);
@@ -30,7 +34,7 @@ public class Controller {
         }
 
         try {
-            nullCheck(storage, file);
+            nullCheck(storage);
         } catch (Exception e) {
             System.err.println("для файла " + file.getId() + " нет свободных ячеек в хранилище " + storage.getId());
             return;
@@ -72,7 +76,7 @@ public class Controller {
         }
     }
 
-    private static void nullCheck(Storage storage, File file) throws Exception {
+    private static void nullCheck(Storage storage) throws Exception {
         for (File storageFile : storage.getFiles()) {
             if (storageFile == null) {
                 return;
@@ -82,6 +86,11 @@ public class Controller {
         throw new Exception("Size check error");
     }
 
+    private static void nullCheck(File file) throws Exception {
+        if (file == null) {
+            throw new Exception("Size check error");
+        }
+    }
 
 }
 
