@@ -10,10 +10,10 @@ public class Demo {
         File file2 = new File(1, "file2", "png", 22);
         File file3 = new File(2, "file3", "jpg", 22);
         File file4 = new File(3, "file4", "avi", 2);
-        File file5 = new File(0, "file5", "avi", 1);
+        File file5 = new File(4, "file5", "avi", 1);
 
        File[] filesFrom = {file1, file2, file3, file4};
-       File[] filesTo = {null, null, null, null};
+       File[] filesTo = {file5, null, null, null};
 
        String[] formatSupportedFrom = {"txt", "png", "jpg", "avi"};
        String[] formatSupportedTo = {"txt", "png", "jpg", "avi"};
