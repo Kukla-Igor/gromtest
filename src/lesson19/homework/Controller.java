@@ -5,17 +5,10 @@ import java.awt.image.RasterFormatException;
 public class Controller {
 
     public static File put(Storage storage, File file) throws Exception {
-
         nullCheck(file);
-
         formatCheck(storage, file);
-
         sizeCheck(storage, file);
-
-
         idCheck(storage, file);
-
-
         nullCheck(storage);
 
         for (int i = 0; i < storage.getFiles().length; i++) {
@@ -26,6 +19,20 @@ public class Controller {
         }
         return file;
     }
+
+    public static File delete(Storage storage, File file) throws Exception {
+        nullCheck(file);
+        for (int i = 0; i < storage.getFiles().length; i++){
+            if (file.equals(storage.getFiles()[i])) {
+                storage.getFiles()[i] = null;
+                return file;
+            }
+        }
+        throw new Exception("файл" + file.getId() + " не найден в хранилище " + storage.getId());
+
+    }
+
+
 
     private static void formatCheck(Storage storage, File file) throws Exception {
         for (String format : storage.getFormatsSupported()) {

@@ -12,7 +12,7 @@ public class Demo {
         File file4 = new File(3, "file4", "avi", 20);
         File file5 = new File(0, "file5", "avi", 1);
 
-        File[] files = {file1, file2, file3, null};
+        File[] files = {file1, file2, file3, file4};
 
         String[] formatsSupported = {"txt", "png", "jpg", "avi"};
 
@@ -20,7 +20,7 @@ public class Demo {
         Controller controller = new Controller();
 
         try {
-            System.out.println(controller.put(storage, file5));
+            System.out.println(controller.delete(storage, file4));
             System.out.println(Arrays.toString(storage.getFiles()));
         } catch (Exception e){
             System.err.println(e.getMessage());
