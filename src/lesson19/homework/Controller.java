@@ -6,9 +6,9 @@ public class Controller {
 
     public static void put(Storage storage, File file) {
 
-        if (file == null) {
-            return;
-        }
+        if (file == null)
+            throw new NullPointerException("Фвйл не указан");
+
 
         try {
             formatCheck(storage, file);
