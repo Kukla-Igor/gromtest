@@ -23,7 +23,7 @@ public class TransactionDAO {
     }
 
     private void validate(Transaction transaction) throws Exception {
-        if (transaction.getAmount() > utils.getLimitsSimpleTransactionsAmount())
+        if (transaction.getAmount() > utils.getLimitSimpleTransactionsAmount())
             throw new LimitExceeded("Transaction limit exceed " + transaction.getId() + ". Can`t be saved");
 
         int sum = 0;

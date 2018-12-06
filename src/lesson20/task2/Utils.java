@@ -14,7 +14,7 @@ public class Utils {
         return limitTransactionsPerDayAmount;
     }
 
-    public int getLimitsSimpleTransactionsAmount() {
+    public int getLimitSimpleTransactionsAmount() {
         return limitSimpleTransactionsAmount;
     }
 
