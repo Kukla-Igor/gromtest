@@ -113,7 +113,7 @@ public class TransactionDAO {
         }
 
         if (count == 0)
-            throw new InternalServerException("City not found");
+            throw new BadRequestException("City not found");
 
 
 
@@ -139,8 +139,8 @@ public class TransactionDAO {
             }
         }
 
-        if (count == 0)
-            throw new BadRequestException("amount not found");
+//        if (count == 0)
+//            throw new BadRequestException("amount not found");
 
         Transaction[] result = new Transaction[count];
         int index = 0;
