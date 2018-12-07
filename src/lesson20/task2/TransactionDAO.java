@@ -74,13 +74,17 @@ public class TransactionDAO {
 
     }
 
-    Transaction[] transactionList() {
+    Transaction[] transactionList() throws Exception {
 
         int count = 0;
         for (Transaction tr : transactions){
             if (tr != null){
                 count++;
             }
+        }
+
+        if (count == 0){
+            throw new BadRequestException("Transaction does`t" );
         }
 
         Transaction[] result  = new Transaction[count];
