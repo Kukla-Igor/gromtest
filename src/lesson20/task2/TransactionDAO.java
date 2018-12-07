@@ -103,21 +103,12 @@ public class TransactionDAO {
         if (city == null)
             throw new BadRequestException("City not set");
 
-        boolean cityCheck = false;
-        for (String transactionCity : utils.getCities()) {
-            if (city.equals(transactionCity)) {
-                cityCheck = true;
-                break;
-            }
-        }
-        if (!cityCheck) {
-            throw new BadRequestException("City not wright ");
-        }
+
 
         int count = 0;
 
         for (Transaction tr : transactions) {
-            if (city.equals(tr.getCity()))
+            if (tr != null && city.equals(tr.getCity()))
                 count++;
         }
 
