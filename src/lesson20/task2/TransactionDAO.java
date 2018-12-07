@@ -99,9 +99,9 @@ public class TransactionDAO {
         return result;
     }
 
-    Transaction[] transactionList(String city){
-//        if (city == null)
-//            throw new BadRequestException("City not set");
+    Transaction[] transactionList(String city) throws Exception{
+        if (city == null)
+            throw new BadRequestException("City not set");
 
 
 
