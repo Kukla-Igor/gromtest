@@ -83,9 +83,9 @@ public class TransactionDAO {
             }
         }
 
-        if (count == 0){
-            throw new BadRequestException("Transaction list is empty" );
-        }
+//        if (count == 0){
+//            throw new BadRequestException("Transaction list is empty" );
+//        }
 
         Transaction[] result  = new Transaction[count];
         int index = 0;
@@ -112,8 +112,7 @@ public class TransactionDAO {
                 count++;
         }
 
-        if (count == 0)
-            throw new BadRequestException("City not found");
+
 
         Transaction[] result = new Transaction[count];
         int index = 0;
@@ -138,7 +137,7 @@ public class TransactionDAO {
         }
 
         if (count == 0)
-            throw new BadRequestException("City not found");
+            throw new BadRequestException("amount not found");
 
         Transaction[] result = new Transaction[count];
         int index = 0;
