@@ -34,7 +34,7 @@ public class Demo {
 
            // System.out.println(Arrays.toString(transactionDAO.getTransactions()));
 
-            System.out.println(Arrays.toString(controller.transactionList("Odessa")));
+            System.out.println(Arrays.toString(controller.transactionList(100)));
 
         }catch (Exception e){
             System.out.println(e.getMessage());

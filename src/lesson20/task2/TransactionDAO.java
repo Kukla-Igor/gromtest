@@ -83,9 +83,9 @@ public class TransactionDAO {
             }
         }
 
-//        if (count == 0){
-//            throw new BadRequestException("Transaction list is empty" );
-//        }
+        if (count == 0){
+            throw new BadRequestException("Transaction list is empty" );
+        }
 
         Transaction[] result  = new Transaction[count];
         int index = 0;
@@ -100,8 +100,8 @@ public class TransactionDAO {
     }
 
     Transaction[] transactionList(String city) throws Exception {
-//        if (city == null)
-//            throw new BadRequestException("City not set");
+        if (city == null)
+            throw new BadRequestException("City not set");
 
 
 
