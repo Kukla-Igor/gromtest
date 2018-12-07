@@ -131,9 +131,6 @@ public class TransactionDAO {
             }
         }
 
-        if (count == 0)
-            throw new InternalServerException("amount list is empty " );
-
 
         Transaction[] result = new Transaction[count];
         int index = 0;
