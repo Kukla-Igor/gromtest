@@ -1,9 +1,10 @@
 package lesson20.task2;
 
 import lesson20.task2.exception.BadRequestException;
-import lesson20.task2.exception.InternalServelException;
+import lesson20.task2.exception.InternalServerException;
 import lesson20.task2.exception.LimitExceeded;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -11,14 +12,22 @@ public class TransactionDAO {
     private Transaction[] transactions = new Transaction[10];
     private Utils utils = new Utils();
 
+    public Transaction[] getTransactions() {
+        return transactions;
+    }
+
     public Transaction save(Transaction transaction) throws Exception {
-        for (Transaction tr : transactions) {
-            if (tr == null)
-                return tr = transaction;
+        validate(transaction);
+
+        for (int i = 0; i < transactions.length; i++) {
+            if (transactions[i] == null){
+                transactions[i] = transaction;
+                return transactions[i];
+            }
         }
 
 
-        throw new InternalServelException("Unexpected error");
+        throw new InternalServerException("Unexpected error");
 
     }
 
@@ -26,8 +35,8 @@ public class TransactionDAO {
         if (transaction.getAmount() > utils.getlimitSimpleTransactionAmount())
             throw new LimitExceeded("Transaction limit exceed " + transaction.getId() + ". Can`t be saved");
 
-        int sum = 0;
-        int count = 0;
+        int sum = transaction.getAmount();
+        int count = 1;
 
         for (Transaction tr : getTransactionsPerDay(transaction.getDateCreated())) {
             sum += tr.getAmount();
@@ -40,19 +49,30 @@ public class TransactionDAO {
         if (count > utils.getLimitTransactionsPerDayCount())
             throw new LimitExceeded("Transaction limit per day count exceed " + transaction.getId() + ". Can`t be saved");
 
+
+        boolean cityCheck = false;
         for (String city : utils.getCities()) {
-            if (city == transaction.getCity()) {
+            if (transaction.getCity().equals(city)) {
+                cityCheck = true;
                 break;
             }
-            throw new BadRequestException("Transaction city not wright " + transaction.getId() + ". Can`t be saved");
-
         }
+            if (!cityCheck) {
+                throw new BadRequestException("Transaction city not wright " + transaction.getId() + ". Can`t be saved");
+            }
 
+
+        boolean freeNull = false;
         for (Transaction tr : transactions) {
-            if (tr == null)
+            if (tr == null) {
+                freeNull = true;
                 break;
+            }
         }
-        throw new InternalServelException("Transaction " + transaction.getId() + "don`t have free space. Can`t be saved");
+        if (!freeNull) {
+            throw new InternalServerException("Transaction " + transaction.getId() + " don`t have free space. Can`t be saved");
+        }
+
 
     }
 
