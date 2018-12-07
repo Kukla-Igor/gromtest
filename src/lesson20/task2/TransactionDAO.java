@@ -84,7 +84,7 @@ public class TransactionDAO {
         }
 
         if (count == 0){
-            throw new BadRequestException("Transaction does`t" );
+            throw new InternalServerException("Transaction does`t" );
         }
 
         Transaction[] result  = new Transaction[count];
