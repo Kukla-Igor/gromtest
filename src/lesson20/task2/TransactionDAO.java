@@ -112,6 +112,9 @@ public class TransactionDAO {
                 count++;
         }
 
+        if (count == 0)
+            throw new BadRequestException("City not found");
+
 
 
         Transaction[] result = new Transaction[count];
