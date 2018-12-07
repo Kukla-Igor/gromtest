@@ -12,7 +12,7 @@ public class Controller {
 
     }
 
-    Transaction[] transactionList() {
+    Transaction[] transactionList()throws Exception {
         return transactionDAO.transactionList();
     }
 
