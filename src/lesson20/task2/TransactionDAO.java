@@ -83,9 +83,6 @@ public class TransactionDAO {
             }
         }
 
-        if (count == 0){
-            throw new InternalServerException("Transaction does`t" );
-        }
 
         Transaction[] result  = new Transaction[count];
         int index = 0;
