@@ -12,7 +12,7 @@ public class TransactionDAO {
     private Transaction[] transactions = new Transaction[10];
     private Utils utils = new Utils();
 
-    public Transaction[] getTransactions() {
+    //public Transaction[] getTransactions() {
         return transactions;
     }
 

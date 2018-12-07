@@ -32,7 +32,7 @@ public class Demo {
             System.out.println(controller.save(transaction9));
             System.out.println(controller.save(transaction10));
             System.out.println(controller.save(transaction11));
-            System.out.println(Arrays.toString(transactionDAO.getTransactions()));
+           // System.out.println(Arrays.toString(transactionDAO.getTransactions()));
 
         }catch (Exception e){
             System.out.println(e.getMessage());
