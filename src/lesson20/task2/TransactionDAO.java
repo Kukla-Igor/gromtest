@@ -13,11 +13,12 @@ public class TransactionDAO {
     private Utils utils = new Utils();
 
 
+
     public Transaction save(Transaction transaction) throws Exception {
         validate(transaction);
 
         for (int i = 0; i < transactions.length; i++) {
-            if (transactions[i] == null) {
+            if (transactions[i] == null){
                 transactions[i] = transaction;
                 return transactions[i];
             }
@@ -54,9 +55,9 @@ public class TransactionDAO {
                 break;
             }
         }
-        if (!cityCheck) {
-            throw new BadRequestException("Transaction city not wright " + transaction.getId() + ". Can`t be saved");
-        }
+            if (!cityCheck) {
+                throw new BadRequestException("Transaction city not wright " + transaction.getId() + ". Can`t be saved");
+            }
 
 
         boolean freeNull = false;
@@ -76,20 +77,20 @@ public class TransactionDAO {
     Transaction[] transactionList() throws Exception {
 
         int count = 0;
-        for (Transaction tr : transactions) {
-            if (tr != null) {
+        for (Transaction tr : transactions){
+            if (tr != null){
                 count++;
             }
         }
 
-        if (count == 0){
-            throw new BadRequestException("Transaction list is empty" );
-        }
+//        if (count == 0){
+//            throw new BadRequestException("Transaction list is empty" );
+//        }
 
-        Transaction[] result = new Transaction[count];
+        Transaction[] result  = new Transaction[count];
         int index = 0;
-        for (Transaction tr : transactions) {
-            if (tr != null) {
+        for (Transaction tr : transactions){
+            if (tr != null){
                 result[index] = tr;
                 index++;
             }
@@ -99,8 +100,9 @@ public class TransactionDAO {
     }
 
     Transaction[] transactionList(String city) throws Exception {
-        if (city == null)
-            throw new BadRequestException("City not set");
+//        if (city == null)
+//            throw new BadRequestException("City not set");
+
 
 
         int count = 0;
@@ -110,8 +112,9 @@ public class TransactionDAO {
                 count++;
         }
 
-        if (count == 0)
-            throw new BadRequestException("City not found");
+//        if (count == 0)
+//            throw new BadRequestException("City not found");
+
 
 
         Transaction[] result = new Transaction[count];
