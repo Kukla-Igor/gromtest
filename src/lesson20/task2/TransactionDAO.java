@@ -75,7 +75,24 @@ public class TransactionDAO {
     }
 
     Transaction[] transactionList() {
-        return transactions;
+
+        int count = 0;
+        for (Transaction tr : transactions){
+            if (tr != null){
+                count++;
+            }
+        }
+
+        Transaction[] result  = new Transaction[count];
+        int index = 0;
+        for (Transaction tr : transactions){
+            if (tr != null){
+                result[index] = tr;
+                index++;
+            }
+        }
+
+        return result;
     }
 
     Transaction[] transactionList(String city) throws Exception {
