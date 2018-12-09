@@ -76,18 +76,10 @@ public class TransactionDAO {
 
     Transaction[] transactionList(){
 
-        Transaction[] transactionsWithout = transactions;
 
-        for (int i = 0; i < transactionsWithout.length; i++){
-            for (int j = i + 1; j < transactionsWithout.length; j++){
-                if (transactionsWithout[i] != null && transactionsWithout[i].equals(transactionsWithout[j])){
-                    transactionsWithout[i] = null;
-                }
-            }
-        }
 
         int count = 0;
-        for (Transaction tr : transactionsWithout){
+        for (Transaction tr : transactions){
             if (tr != null){
                 count++;
             }
@@ -96,9 +88,10 @@ public class TransactionDAO {
 
 
 
+
         Transaction[] result  = new Transaction[count];
         int index = 0;
-        for (Transaction tr : transactionsWithout){
+        for (Transaction tr : transactions){
             if (tr != null){
                 result[index] = tr;
                 index++;
@@ -113,13 +106,15 @@ public class TransactionDAO {
             throw new BadRequestException("City not set");
 
 
-
         int count = 0;
 
         for (Transaction tr : transactions) {
             if (tr != null && city.equals(tr.getCity()))
                 count++;
         }
+
+        if (count == 0)
+            throw new BadRequestException("City " + city + " not found");
 
         Transaction[] result = new Transaction[count];
         int index = 0;

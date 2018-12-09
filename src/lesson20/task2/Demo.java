@@ -21,20 +21,20 @@ public class Demo {
         TransactionDAO transactionDAO = new TransactionDAO();
 
         try {
-//           System.out.println(controller.save(transaction1));
-//            System.out.println(controller.save(transaction2));
-//            System.out.println(controller.save(transaction3));
-//            System.out.println(controller.save(transaction4));
-//            System.out.println(controller.save(transaction5));
-//            System.out.println(controller.save(transaction6));
-//            System.out.println(controller.save(transaction7));
-//            System.out.println(controller.save(transaction8));
-//            System.out.println(controller.save(transaction9));
-//            System.out.println(controller.save(transaction10));
+           System.out.println(controller.save(transaction1));
+            System.out.println(controller.save(transaction1));
+            System.out.println(controller.save(transaction1));
+            System.out.println(controller.save(transaction1));
+            System.out.println(controller.save(transaction5));
+            System.out.println(controller.save(transaction6));
+            System.out.println(controller.save(transaction7));
+            System.out.println(controller.save(transaction8));
+            System.out.println(controller.save(transaction9));
+            System.out.println(controller.save(transaction10));
 
            // System.out.println(Arrays.toString(transactionDAO.getTransactions()));
 
-            System.out.println(Arrays.toString(controller.transactionList(100)));
+            System.out.println(Arrays.toString(controller.transactionList()));
 
         }catch (Exception e){
             System.out.println(e.getMessage());
