@@ -76,17 +76,29 @@ public class TransactionDAO {
 
     Transaction[] transactionList(){
 
+        Transaction[] transactionsWithout = transactions;
+
+        for (int i = 0; i < transactionsWithout.length; i++){
+            for (int j = i + 1; j < transactionsWithout.length; j++){
+                if (transactionsWithout[i] != null && transactionsWithout[i].equals(transactionsWithout[j])){
+                    transactionsWithout[i] = null;
+                }
+            }
+        }
+
         int count = 0;
-        for (Transaction tr : transactions){
+        for (Transaction tr : transactionsWithout){
             if (tr != null){
                 count++;
             }
         }
 
 
+
+
         Transaction[] result  = new Transaction[count];
         int index = 0;
-        for (Transaction tr : transactions){
+        for (Transaction tr : transactionsWithout){
             if (tr != null){
                 result[index] = tr;
                 index++;
@@ -120,7 +132,7 @@ public class TransactionDAO {
         return result;
     }
 
-    Transaction[] transactionList(int amount) throws Exception {
+    Transaction[] transactionList(int amount) {
 
         int count = 0;
 
