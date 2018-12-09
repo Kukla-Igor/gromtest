@@ -74,7 +74,7 @@ public class TransactionDAO {
 
     }
 
-    Transaction[] transactionList(){
+    Transaction[] transactionList() throws Exception{
 
 
 
@@ -85,7 +85,8 @@ public class TransactionDAO {
             }
         }
 
-
+        if (count == 0)
+            throw new BadRequestException("Transaction not found");
 
 
 
