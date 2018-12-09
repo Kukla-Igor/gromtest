@@ -74,7 +74,7 @@ public class TransactionDAO {
 
     }
 
-    Transaction[] transactionList(){
+    Transaction[] transactionList() throws Exception{
 
         int count = 0;
         for (Transaction tr : transactions){
@@ -82,6 +82,8 @@ public class TransactionDAO {
                 count++;
             }
         }
+
+
 
 
         Transaction[] result  = new Transaction[count];
@@ -108,6 +110,10 @@ public class TransactionDAO {
                 count++;
         }
 
+        if (count == 0){
+            throw new InternalServerException("Transaction city: " + city + " don`t found");
+        }
+
 
 
         Transaction[] result = new Transaction[count];
@@ -122,9 +128,6 @@ public class TransactionDAO {
     }
 
     Transaction[] transactionList(int amount) throws Exception {
-
-        if (amount == 0)
-            throw new BadRequestException("Amount not set");
 
         int count = 0;
 
