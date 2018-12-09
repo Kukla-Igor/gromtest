@@ -74,9 +74,7 @@ public class TransactionDAO {
 
     }
 
-    Transaction[] transactionList() throws Exception{
-
-
+    Transaction[] transactionList(){
 
         int count = 0;
         for (Transaction tr : transactions){
@@ -85,7 +83,6 @@ public class TransactionDAO {
             }
         }
 
-        isArrayNull(count);
 
         Transaction[] result  = new Transaction[count];
         int index = 0;
@@ -111,8 +108,6 @@ public class TransactionDAO {
                 count++;
         }
 
-        isArrayNull(count);
-
 
 
         Transaction[] result = new Transaction[count];
@@ -128,6 +123,9 @@ public class TransactionDAO {
 
     Transaction[] transactionList(int amount) throws Exception {
 
+        if (amount == 0)
+            throw new BadRequestException("Amount not set");
+
         int count = 0;
 
         for (Transaction tr : transactions) {
@@ -137,7 +135,7 @@ public class TransactionDAO {
             }
         }
 
-        isArrayNull(count);
+
 
 
         Transaction[] result = new Transaction[count];
@@ -192,8 +190,5 @@ public class TransactionDAO {
 
     }
 
-    private static void isArrayNull (int count) throws Exception{
-        if (count == 0)
-            throw new BadRequestException("Transaction not found");
-    }
+
 }
