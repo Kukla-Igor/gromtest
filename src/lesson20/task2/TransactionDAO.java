@@ -85,10 +85,7 @@ public class TransactionDAO {
             }
         }
 
-        if (count == 0)
-            throw new BadRequestException("Transaction not found");
-
-
+        isArrayNull(count);
 
         Transaction[] result  = new Transaction[count];
         int index = 0;
@@ -114,8 +111,9 @@ public class TransactionDAO {
                 count++;
         }
 
-        if (count == 0)
-            throw new BadRequestException("City " + city + " not found");
+        isArrayNull(count);
+
+
 
         Transaction[] result = new Transaction[count];
         int index = 0;
@@ -128,7 +126,7 @@ public class TransactionDAO {
         return result;
     }
 
-    Transaction[] transactionList(int amount) {
+    Transaction[] transactionList(int amount) throws Exception {
 
         int count = 0;
 
@@ -138,6 +136,8 @@ public class TransactionDAO {
                     count++;
             }
         }
+
+        isArrayNull(count);
 
 
         Transaction[] result = new Transaction[count];
@@ -190,5 +190,10 @@ public class TransactionDAO {
 
         return result;
 
+    }
+
+    private static void isArrayNull (int count) throws Exception{
+        if (count == 0)
+            throw new BadRequestException("Transaction not found");
     }
 }
