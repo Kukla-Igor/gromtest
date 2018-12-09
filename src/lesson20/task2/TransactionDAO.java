@@ -106,7 +106,7 @@ public class TransactionDAO {
         int count = 0;
 
         for (Transaction tr : transactions) {
-            if (tr != null && city.equals(tr.getCity()))
+            if (city.equals(tr.getCity()))
                 count++;
         }
 
