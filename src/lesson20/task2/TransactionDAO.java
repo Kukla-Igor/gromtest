@@ -111,7 +111,7 @@ public class TransactionDAO {
         }
 
         if (count == 0){
-            throw new InternalServerException("Transaction city: " + city + " don`t found");
+            throw new BadRequestException("Transaction city: " + city + " don`t found");
         }
 
 
