@@ -110,9 +110,9 @@ public class TransactionDAO {
                 count++;
         }
 
-        if (count == 0){
-            throw new BadRequestException("Transaction city: " + city + " don`t found");
-        }
+//        if (count == 0){
+//            throw new BadRequestException("Transaction city: " + city + " don`t found");
+//        }
 
 
 
