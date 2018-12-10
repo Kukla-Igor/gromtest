@@ -74,7 +74,7 @@ public class TransactionDAO {
 
     }
 
-    Transaction[] transactionList() throws Exception{
+    Transaction[] transactionList() {
 
         int count = 0;
         for (Transaction tr : transactions){
@@ -106,7 +106,7 @@ public class TransactionDAO {
         int count = 0;
 
         for (Transaction tr : transactions) {
-            if (city.equals(tr.getCity()))
+            if (tr != null && city.equals(tr.getCity()))
                 count++;
         }
 
@@ -119,7 +119,7 @@ public class TransactionDAO {
         Transaction[] result = new Transaction[count];
         int index = 0;
         for (Transaction tr : transactions) {
-            if (city.equals(tr.getCity())) {
+            if (tr != null && city.equals(tr.getCity())) {
                 result[index] = tr;
                 index++;
             }
@@ -127,7 +127,7 @@ public class TransactionDAO {
         return result;
     }
 
-    Transaction[] transactionList(int amount) throws Exception {
+    Transaction[] transactionList(int amount) {
 
         int count = 0;
 
