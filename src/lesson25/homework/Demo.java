@@ -19,6 +19,7 @@ public class Demo {
 
 
         System.out.println(generalDAO.save(order1));
+        System.out.println(generalDAO.getAll());
 
 
     }

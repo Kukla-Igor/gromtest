@@ -4,7 +4,7 @@ public class  GeneralDAO <T extends IdEntity> {
 
     @SuppressWarnings("unchecked")
 
-    private T[] arr = (T[]) new Object[10];
+    private T[] arr = (T[]) new IdEntity[10];
 
     public T save(T t) throws Exception {
         if (t == null)
@@ -32,7 +32,7 @@ public class  GeneralDAO <T extends IdEntity> {
                 length++;
         }
 
-        T[] result = (T[]) new Object[length];
+        T[] result = (T[]) new IdEntity[length];
         int index = 0;
 
         for (T el : arr){
