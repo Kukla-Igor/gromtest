@@ -22,14 +22,6 @@ public class DemoComparator {
 
         System.out.println(capabilities);
 
-        Comparator<Capability> comparator = new Comparator<Capability>() {
-            @Override
-            public int compare(Capability o1, Capability o2) {
-                if (o1.getChanelName().equals(o2.getChanelName())){
-                    return o1.getChanelName().compareTo(o2.getChanelName());
-                }
-                return 0;
-            }
-        };
+
     }
 }
