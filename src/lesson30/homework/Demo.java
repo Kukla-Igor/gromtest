@@ -1,6 +1,5 @@
 package lesson30.homework;
 
-import static lesson30.homework.DepartmentType.MANAGER;
 
 public class Demo {
     public static void main(String[] args) {
@@ -13,7 +12,7 @@ public class Demo {
         System.out.println(controller.projectsByEmployee(employee));
 
 
-        System.out.println(controller.employeesByDepartmentWithoutProject(MANAGER));
+        System.out.println(controller.employeesByDepartmentWithoutProject(DepartmentType.MANAGER));
         System.out.println(controller.employeesWithoutProject());
 
 
