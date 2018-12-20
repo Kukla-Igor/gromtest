@@ -8,7 +8,7 @@ public class EmployeeDAO {
     Employee kirril = new Employee("Kirril", "Bogdanov", new Date(), Position.ANALYST, new DepartmentDAO().getAnalyst());
     Employee oleg = new Employee("Oleg", "Ivanov", new Date(), Position.DESIGNER, new DepartmentDAO().getDeveloper());
     Employee serg = new Employee("Serg", "Sergeev", new Date(), Position.DEVELOPER, new DepartmentDAO().getFinance());
-    Employee anton = new Employee("Anton", "Antonov", new Date(), Position.LEAD_DESIGNER, new DepartmentDAO().getFinance());
+    Employee anton = new Employee("Anton", "Antonov", new Date(), Position.TEAM_LEAD, new DepartmentDAO().getFinance());
     Employee bogdan = new Employee("Bogdan", "Trump", new Date(), Position.MANAGER, new DepartmentDAO().getManager());
     Employee denis = new Employee("Denis", "Denisov", new Date(), Position.ANALYST, new DepartmentDAO().getFinance());
 

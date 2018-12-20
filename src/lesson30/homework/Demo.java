@@ -14,6 +14,19 @@ public class Demo {
 
         System.out.println(controller.employeesByDepartmentWithoutProject(DepartmentType.MANAGER));
         System.out.println(controller.employeesWithoutProject());
+        System.out.println(controller.employeesByTeamLead(employeeDAO.getAnton()));
+
+
+        System.out.println(controller.teamLeadsByEmployee(employeeDAO.getKirril()));
+        System.out.println(controller.employeesByProjectEmployee(employeeDAO.getKirril()));
+
+        CustomerDAO customerDAO = new CustomerDAO();
+
+        System.out.println(controller.projectsByCustomer(customerDAO.getBilly()));
+
+        System.out.println(controller.employeesByCustomerProject(customerDAO.getBilly()));
+
+
 
 
     }

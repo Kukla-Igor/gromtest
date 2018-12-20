@@ -1,5 +1,7 @@
 package lesson30.homework;
 
+import java.util.ArrayList;
+
 public class CustomerDAO {
     private Customer billy = new Customer("Billy", "USA", 1000);
     private Customer garry = new Customer("Garry", "Ukraine", 1500);
@@ -15,5 +17,13 @@ public class CustomerDAO {
 
     public Customer getJack() {
         return jack;
+    }
+
+    public ArrayList<Customer> getAll() {
+        ArrayList<Customer> list = new ArrayList<>();
+        list.add(billy);
+        list.add(garry);
+        list.add(jack);
+        return list;
     }
 }
