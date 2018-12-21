@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 public class DemoComparable {
     public static void main(String[] args) {
-        Capability capability1 = new Capability(1001, "test", "rrrr",true,  new Date());
+        Capability capability1 = new Capability(1001, "test", "rrrr",true,  null);
         Capability capability2 = new Capability(1005, "test", "rrrr",true,  new Date());
         Capability capability3 = new Capability(900, "test", "rrrr",true,  new Date());
 
