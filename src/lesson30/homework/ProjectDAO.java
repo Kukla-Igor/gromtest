@@ -1,43 +1,43 @@
 package lesson30.homework;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ProjectDAO {
 
-    private Project projectForBilly = new Project("ProjectForBilly", new CustomerDAO().getBilly());
-    private Project projectForGarry = new Project("ProjectForGarry", new CustomerDAO().getGarry());
-    private Project projectForJack = new Project("ProjectForJack", new CustomerDAO().getJack());
+    private ArrayList<Project> projects;
 
-
-
-    public Project getProjectForBilly() {
-        return projectForBilly;
+    public ProjectDAO(ArrayList<Project> projects) {
+        this.projects = projects;
     }
 
-    public Project getProjectForGarry() {
-        return projectForGarry;
+    public ArrayList<Project> projectsByEmployee(Employee employee) {
+
+        return employee.getProjects();
     }
 
-    public Project getProjectForJack() {
-        return projectForJack;
+    public ArrayList<Project> projectsByCustomer(Customer customer) {
+
+        ArrayList<Project> res = new ArrayList<>();
+
+        for (int i = 0; i < projects.size(); i++) {
+            if (customer.equals(projects.get(i).getCustomer()))
+                res.add(projects.get(i));
+        }
+
+
+        return res;
+    }
+
+    public Set<Employee> employeesByCustomerProject(Customer customer, EmployeeDAO employeeDAO) {
+
+        ArrayList<Project> projects = projectsByCustomer(customer);
+
+
+        return employeeDAO.findRes(projects);
     }
 
 
-
-    public ArrayList<Project> getAll() {
-        ArrayList<Project> list = new ArrayList<>();
-        list.add(projectForBilly);
-        list.add(projectForGarry);
-        list.add(projectForJack);
-        return list;
-    }
-
-    @Override
-    public String toString() {
-        return "ProjectDAO{" +
-                "projectForBilly=" + projectForBilly +
-                ", projectForGarry=" + projectForGarry +
-                ", projectForJack=" + projectForJack +
-                '}';
-    }
 }
+

@@ -30,4 +30,13 @@ public class Customer {
         result = 31 * result + monthlyPay;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name='" + name + '\'' +
+                ", country='" + country + '\'' +
+                ", monthlyPay=" + monthlyPay +
+                '}';
+    }
 }

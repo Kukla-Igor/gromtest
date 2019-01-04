@@ -19,6 +19,10 @@ public class Department {
         return employees;
     }
 
+    public void setType(DepartmentType type) {
+        this.type = type;
+    }
+
     public void setEmployees(ArrayList<Employee> employees) {
         this.employees = employees;
     }
