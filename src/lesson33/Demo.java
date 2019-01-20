@@ -5,7 +5,7 @@ public class Demo {
         ReadWriteFile readWriteFile = new ReadWriteFile();
 
         readWriteFile.readFile("C:/Users/User/Desktop/Test.txt");
-        readWriteFile.writeFile("C:/Users/User/Desktop/Test1.txt");
+        //readWriteFile.writeFile("C:/Users/User/Desktop/Test1.txt");
     }
 
 }

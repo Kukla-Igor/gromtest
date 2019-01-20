@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class ReadFromKeyboard {
     public static void main(String[] args) throws IOException {
-    readKeyboardWidthIOStream1();
+    readKeyboardWidthIOStream2();
     }
 
 
