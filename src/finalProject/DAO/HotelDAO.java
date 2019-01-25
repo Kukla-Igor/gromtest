@@ -3,9 +3,7 @@ package finalProject.DAO;
 import finalProject.exception.InternalServelException;
 import finalProject.exception.UserNotFoundException;
 import finalProject.model.Hotel;
-
 import java.io.BufferedReader;
-
 import java.io.File;
 import java.io.FileReader;
 
@@ -78,7 +76,6 @@ public class HotelDAO  {
             throw new UserNotFoundException("Hotel with id: " + id + " not found");
         }
     }
-
 
 
 
