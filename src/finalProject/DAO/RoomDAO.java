@@ -1,6 +1,5 @@
 package finalProject.DAO;
 
-import finalProject.exception.BadRequestException;
 import finalProject.exception.InternalServelException;
 
 import finalProject.exception.UserNotFoundException;
@@ -17,14 +16,15 @@ import java.util.Date;
 import java.util.List;
 
 
-public class RoomDAO {
+public class RoomDAO  <T extends Room> {
+    String pathDB = "G://Работа//Java//Gromcod//Java Core//Final Project//BD//RoomBD.txt";
 
     public ArrayList<Room> findRooms(Filter filter) throws Exception {
         ArrayList<Room> list = new ArrayList<>();
         String line;
         Room room;
         int numberOfLine = 1;
-        String pathDB = "G://Работа//Java//Gromcod//Java Core//Final Project//BD//RoomBD.txt";
+
         HotelDAO hotelDAO = new HotelDAO();
 
 
@@ -60,36 +60,40 @@ public class RoomDAO {
         return list;
     }
 
-    public Room findRoomById(Long id) throws Exception {
-        String line;
-        Room room;
-        int numberOfLine = 1;
-        String pathDB = "G://Работа//Java//Gromcod//Java Core//Final Project//BD//RoomBD.txt";
-
-
-        try (BufferedReader br = new BufferedReader(new FileReader(pathDB))) {
-            while ((line = br.readLine()) != null) {
-                String[] arr = line.split(",");
-                int i = 0;
-
-
-                try {
-                    room = new Room(Long.valueOf(arr[i]), Integer.valueOf(arr[++i].trim()), Double.valueOf(arr[++i].trim()), Boolean.valueOf(arr[++i].trim()), Boolean.valueOf(arr[++i].trim()), new SimpleDateFormat("dd-MM-yyyy").parse(arr[++i]), new HotelDAO().findHotelById(Long.valueOf(arr[++i].trim())));
-                } catch (Exception e) {
-                    throw new InternalServelException("Invalid data in line " + numberOfLine + " of the file " + new File(pathDB).getName());
-                }
-
-
-                if (room.getId() == id) {
-                    return room;
-                } else
-                    numberOfLine++;
-            }
-
-
-            throw new UserNotFoundException("Room with id: " + id + " not found");
-        }
+    public Room findRoomById(Long id) throws Exception{
+        return new DAO<Room>().findById(id, pathDB);
     }
+
+//    public Room findRoomById(Long id) throws Exception {
+//        String line;
+//        Room room;
+//        int numberOfLine = 1;
+//        String pathDB = "G://Работа//Java//Gromcod//Java Core//Final Project//BD//RoomBD.txt";
+//
+//
+//        try (BufferedReader br = new BufferedReader(new FileReader(pathDB))) {
+//            while ((line = br.readLine()) != null) {
+//                String[] arr = line.split(",");
+//                int i = 0;
+//
+//
+//                try {
+//                    room = new Room(Long.valueOf(arr[i]), Integer.valueOf(arr[++i].trim()), Double.valueOf(arr[++i].trim()), Boolean.valueOf(arr[++i].trim()), Boolean.valueOf(arr[++i].trim()), new SimpleDateFormat("dd-MM-yyyy").parse(arr[++i]), new HotelDAO().findHotelById(Long.valueOf(arr[++i].trim())));
+//                } catch (Exception e) {
+//                    throw new InternalServelException("Invalid data in line " + numberOfLine + " of the file " + new File(pathDB).getName());
+//                }
+//
+//
+//                if (room.getId() == id) {
+//                    return room;
+//                } else
+//                    numberOfLine++;
+//            }
+//
+//
+//            throw new UserNotFoundException("Room with id: " + id + " not found");
+//        }
+//    }
 
     public void updateDateRoom(Date oldDate, Date newDate, long id) throws InternalServelException {
         String pathDB = "G://Работа//Java//Gromcod//Java Core//Final Project//BD//RoomBD.txt";

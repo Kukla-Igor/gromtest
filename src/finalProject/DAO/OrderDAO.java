@@ -39,7 +39,7 @@ public class OrderDAO {
             throw new BadRequestException("Sorry, the room with id " + roomId + " is busy");
 
 
-        Order order = new Order(idGenerator(pathDB), user, room, dayFrom.getTime(), dayTo.getTime(), room.getPrice());
+        Order order = new Order(new DAO().idGenerator(pathDB), user, room, dayFrom.getTime(), dayTo.getTime(), room.getPrice());
         SimpleDateFormat simple = new SimpleDateFormat("dd-MM-yyyy");
 
 
@@ -73,7 +73,6 @@ public class OrderDAO {
             if (order.getRoom().getId() == roomId && (order.getUser().getId() == userId)) {
 
                 fileContent.remove(i);
-
                 Files.write(file.toPath(), fileContent);
 
                 new RoomDAO().updateDateRoom(order.getRoom().getDateAvailableFrom(), new Date(), roomId);
@@ -90,22 +89,5 @@ public class OrderDAO {
     }
 
 
-    private long idGenerator(String pathDB) throws InternalServelException {
-        long id = 0;
-        int numberOfLine = 1;
-        ArrayList<Long> list = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(pathDB))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                list.add(Long.valueOf(line.substring(0, line.indexOf(','))));
-                numberOfLine++;
-            }
-        } catch (Exception e) {
-            throw new InternalServelException("Invalid data in line " + numberOfLine + " of the file " + new File(pathDB).getName());
-        }
 
-        while (list.contains(id))
-            id++;
-        return id;
-    }
 }
