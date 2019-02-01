@@ -1,13 +1,8 @@
 package finalProject.model;
 
-import finalProject.DAO.abstractModel.IdEntity;
-import finalProject.DAO.newCreate;
-import finalProject.DAO.HotelDAO;
-
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Room extends IdEntity implements newCreate {
+public class Room {
     private long id;
     private int numberOfGuests;
     private double price;
@@ -55,8 +50,8 @@ public class Room extends IdEntity implements newCreate {
         return hotel;
     }
 
-    public void setDateAvailableFrom(Date dateAvailableFrom) {
-        this.dateAvailableFrom = dateAvailableFrom;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override
@@ -100,11 +95,5 @@ public class Room extends IdEntity implements newCreate {
         result = 31 * result + (dateAvailableFrom != null ? dateAvailableFrom.hashCode() : 0);
         result = 31 * result + (hotel != null ? hotel.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public  Room newCreate(String[] arr) throws Exception {
-        int i = 0;
-        return new Room(Long.valueOf(arr[i]), Integer.valueOf(arr[++i].trim()), Double.valueOf(arr[++i].trim()), Boolean.valueOf(arr[++i].trim()), Boolean.valueOf(arr[++i].trim()), new SimpleDateFormat("dd-MM-yyyy").parse(arr[++i]), new HotelDAO().findHotelById(Long.valueOf(arr[++i].trim())));
     }
 }

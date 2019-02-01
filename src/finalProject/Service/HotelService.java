@@ -2,12 +2,11 @@ package finalProject.Service;
 
 import finalProject.DAO.HotelDAO;
 import finalProject.exception.BadRequestException;
-import finalProject.exception.InternalServelException;
 import finalProject.model.Hotel;
 
 public class HotelService {
 
-    HotelDAO hotelDAO = new HotelDAO();
+    private HotelDAO hotelDAO = new HotelDAO();
 
     public Hotel findHotelByName(String name) throws Exception {
         if (name.isEmpty())

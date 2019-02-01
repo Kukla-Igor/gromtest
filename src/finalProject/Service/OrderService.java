@@ -4,7 +4,7 @@ import finalProject.DAO.OrderDAO;
 
 
 public class OrderService {
-   public OrderDAO orderDAO = new OrderDAO();
+   private OrderDAO orderDAO = new OrderDAO();
 
     public void bookRooms(long roomId, long userId, long hotelId) throws Exception{
         orderDAO.bookRoom(roomId, userId, hotelId);

@@ -1,12 +1,10 @@
 package finalProject.DAO;
 
 import finalProject.exception.BadRequestException;
-import finalProject.exception.InternalServelException;
-import finalProject.model.Hotel;
+import finalProject.exception.InternalServerException;
 import finalProject.model.Order;
 import finalProject.model.Room;
 import finalProject.model.User;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
@@ -20,7 +18,8 @@ public class OrderDAO {
 
     public void bookRoom(long roomId, long userId, long hotelId) throws Exception {
         User user = new UserDAO().findUserById(userId);
-        Room room = new RoomDAO().findRoomById(roomId);
+
+       Room room = new RoomDAO().findRoomById(roomId);
 
 
         if (room.getHotel().getId() != hotelId)
@@ -80,7 +79,7 @@ public class OrderDAO {
                 return;
             }
             }catch (Exception e){
-                throw new InternalServelException("Invalid data in line " + numberOfLine + " of the file " + new File(pathDB).getName());
+                throw new InternalServerException("Invalid data in line " + numberOfLine + " of the file " + new File(pathDB).getName());
             }
         }
 

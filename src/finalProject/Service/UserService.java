@@ -1,11 +1,10 @@
 package finalProject.Service;
 
 import finalProject.DAO.UserDAO;
-import finalProject.exception.InternalServelException;
 import finalProject.model.User;
 
 public class UserService {
-    UserDAO userDAO = new UserDAO();
+    private UserDAO userDAO = new UserDAO();
 
     public User registerUser(User user) throws Exception {
         return userDAO.registerUser(user);

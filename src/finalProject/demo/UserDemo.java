@@ -2,7 +2,6 @@ package finalProject.demo;
 
 import finalProject.Controller.UserController;
 import finalProject.UserType;
-import finalProject.exception.InternalServelException;
 import finalProject.model.User;
 
 public class UserDemo {

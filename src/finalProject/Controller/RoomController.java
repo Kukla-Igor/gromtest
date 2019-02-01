@@ -9,9 +9,17 @@ import java.util.ArrayList;
 
 public class RoomController {
 
-    RoomService roomService = new RoomService();
+    private RoomService roomService = new RoomService();
 
     public ArrayList<Room> findRooms(Filter filter) throws Exception {
         return roomService.findRooms(filter);
+    }
+
+    public Room addRoom(Room room) throws Exception {
+        return roomService.addRoom(room);
+    }
+
+    public void deleteRoom(Long roomId) throws Exception{
+        roomService.deleteRoom(roomId);
     }
 }

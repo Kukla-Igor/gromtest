@@ -1,5 +1,6 @@
 package finalProject.model;
 
+
 public class Hotel{
     private long id;
     private String name;
