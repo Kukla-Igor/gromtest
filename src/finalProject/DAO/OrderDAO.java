@@ -2,6 +2,7 @@ package finalProject.DAO;
 
 import finalProject.exception.BadRequestException;
 import finalProject.exception.InternalServerException;
+import finalProject.model.IdEntity;
 import finalProject.model.Order;
 import finalProject.model.Room;
 import finalProject.model.User;
@@ -13,13 +14,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class OrderDAO {
+public class OrderDAO extends DAO {
+
+    String pathDB = "G://Работа//Java//Gromcod//Java Core//Final Project//BD//OrderBD.txt";
+    String pathUserDB = "G://Работа//Java//Gromcod//Java Core//Final Project//BD//UserBD.txt";
+    String pathRoomDB = "G://Работа//Java//Gromcod//Java Core//Final Project//BD//RoomBD.txt";
+
 
 
     public void bookRoom(long roomId, long userId, long hotelId) throws Exception {
-        User user = new UserDAO().findUserById(userId);
+        User user = (User) new UserDAO().findById(userId, pathUserDB);
 
-       Room room = new RoomDAO().findRoomById(roomId);
+       Room room = (Room) new RoomDAO().findById(roomId, pathRoomDB);
 
 
         if (room.getHotel().getId() != hotelId)
@@ -28,7 +34,6 @@ public class OrderDAO {
 
         Calendar dayFrom = Calendar.getInstance();
         Calendar dayTo = Calendar.getInstance();
-        String pathDB = "G://Работа//Java//Gromcod//Java Core//Final Project//BD//OrderBD.txt";
 
 
         dayTo.add(Calendar.DAY_OF_MONTH, 3);
@@ -38,7 +43,7 @@ public class OrderDAO {
             throw new BadRequestException("Sorry, the room with id " + roomId + " is busy");
 
 
-        Order order = new Order(new DAO().idGenerator(pathDB), user, room, dayFrom.getTime(), dayTo.getTime(), room.getPrice());
+        Order order = new Order(idGenerator(pathDB), user, room, dayFrom.getTime(), dayTo.getTime(), room.getPrice());
         SimpleDateFormat simple = new SimpleDateFormat("dd-MM-yyyy");
 
 
@@ -58,7 +63,6 @@ public class OrderDAO {
         int numberOfLine = 1;
 
 
-
         List<String> fileContent = new ArrayList<>(Files.readAllLines(file.toPath()));
         for (int i = 0; i < fileContent.size(); i++) {
             int index = 0;
@@ -66,7 +70,7 @@ public class OrderDAO {
 
             try {
 
-                order = new Order(Long.valueOf(arr[index]), new UserDAO().findUserById(Long.valueOf(arr[++index].trim())), new RoomDAO().findRoomById(Long.valueOf(arr[++index].trim())), new SimpleDateFormat("dd-MM-yyyy").parse(arr[++index]), new SimpleDateFormat("dd-MM-yyyy").parse(arr[++index]), Double.valueOf(arr[++index]));
+                order = new Order(Long.valueOf(arr[index]), (User) new UserDAO().findById(Long.valueOf(arr[++index].trim()), pathUserDB), (Room) new RoomDAO().findById(Long.valueOf(arr[++index].trim()), pathRoomDB), new SimpleDateFormat("dd-MM-yyyy").parse(arr[++index]), new SimpleDateFormat("dd-MM-yyyy").parse(arr[++index]), Double.valueOf(arr[++index]));
                 numberOfLine++;
 
             if (order.getRoom().getId() == roomId && (order.getUser().getId() == userId)) {
@@ -87,6 +91,15 @@ public class OrderDAO {
 
     }
 
+    @Override
+    IdEntity mapTOObject(String[] arr, int numberOfLine) {
+        return null;
+    }
 
+    @Override
+    void writeToFile(IdEntity idEntity, String pathDB) throws InternalServerException {
 
+    }
 }
+
+

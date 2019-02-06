@@ -1,7 +1,7 @@
 package finalProject.model;
 
 
-public class Hotel{
+public class Hotel extends IdEntity{
     private long id;
     private String name;
     private String country;
