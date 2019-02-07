@@ -16,7 +16,7 @@ public abstract class DAO <T extends IdEntity> {
     abstract void writeToFile(T t, String pathDB) throws InternalServerException;
 
     public long idGenerator(String pathDB) throws InternalServerException {
-        long id = (long) (Math.random()*10000);
+        long id = (long) (Math.random()*Long.MAX_VALUE);
         int numberOfLine = 1;
         ArrayList<Long> list = new ArrayList<>();
 
@@ -33,7 +33,7 @@ public abstract class DAO <T extends IdEntity> {
 
 
         if (list.contains(id))
-            idGenerator(pathDB);
+            id = idGenerator(pathDB);
 
 
         return id;
