@@ -18,7 +18,7 @@ public class HotelDAO extends DAO{
 
         try (BufferedReader br = new BufferedReader(new FileReader(pathDB))) {
             while ((line = br.readLine()) != null) {
-                hotel = searchHotel(line, name, numberOfLine, pathDB);
+                hotel = searchHotel(line, name, numberOfLine);
 
 
                 if (hotel != null && hotel.getName().equals(name)) {
@@ -41,7 +41,7 @@ public class HotelDAO extends DAO{
 
         try (BufferedReader br = new BufferedReader(new FileReader(pathDB))) {
             while ((line = br.readLine()) != null) {
-                hotel = searchHotel(line, name, numberOfLine, pathDB);
+                hotel = searchHotel(line, name, numberOfLine);
 
 
                 if (hotel != null && hotel.getCity().equals(name)) {
@@ -63,7 +63,7 @@ public class HotelDAO extends DAO{
         delete(hotelId, pathDB);
     }
 
-    private Hotel searchHotel(String line, String search, int numberOfLine, String pathDB) throws InternalServerException{
+    private Hotel searchHotel(String line, String search, int numberOfLine) throws InternalServerException{
         if (!line.contains(search))
             return null;
 
@@ -88,14 +88,10 @@ public class HotelDAO extends DAO{
     }
 
     @Override
-    void writeToFile(IdEntity idEntity, String pathDB) throws InternalServerException {
+    String toString(IdEntity idEntity){
         Hotel hotel = (Hotel) idEntity;
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(pathDB, true))) {
-            bw.append("\n");
-            bw.append(hotel.getId() + ", " + hotel.getName() + ", " + hotel.getCountry() + ", " + hotel.getCity() + ", " + hotel.getStreet());
-        } catch (IOException e) {
-            System.err.println("Can`t write to file: " + pathDB);
-        }
+        String line =hotel.getId() + ", " + hotel.getName() + ", " + hotel.getCountry() + ", " + hotel.getCity() + ", " + hotel.getStreet();
+       return line;
     }
 }
 

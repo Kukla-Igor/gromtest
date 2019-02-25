@@ -8,7 +8,7 @@ public class UserDemo {
     public static void main(String[] args) throws Exception {
         UserController userController = new UserController();
 
-        User user = new User("Anton", "password", "Mexico", UserType.USER);
+        User user = new User("Anton", "password", "Kiev", UserType.USER);
 
         System.out.println(userController.registerUser(user));
     }

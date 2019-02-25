@@ -14,25 +14,8 @@ public class UserDAO extends DAO {
 
     public User registerUser(User user) throws Exception{
 
+        return (User) add(user, pathDB);
 
-        user.setId(idGenerator(pathDB));
-        String line;
-
-
-        try (BufferedReader br = new BufferedReader(new FileReader(pathDB))) {
-            while ((line = br.readLine()) != null){
-                if (findById(Long.valueOf(line.substring(0, line.indexOf(','))), pathDB).equals(user))
-                    throw new BadRequestException("User "  + user + " already in the database");
-            }
-        }catch (IOException e) {
-            System.err.println("Can`t write to file: " + pathDB);
-        }
-
-
-       writeToFile(user, pathDB);
-
-
-        return user;
     }
 
     @Override
@@ -49,13 +32,10 @@ public class UserDAO extends DAO {
     }
 
     @Override
-    void writeToFile(IdEntity idEntity, String pathDB) {
+    String toString(IdEntity idEntity) {
         User user = (User) idEntity;
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(pathDB, true))) {
-            bw.append("\n");
-            bw.append(user.getId() + ", " + user.getUserName() + ", " + user.getPassword() + ", " + user.getCountry() + ", " + user.getUserType());
-        } catch (IOException e) {
-            System.err.println("Can`t write to file: " + pathDB);
-        }
+        String line = user.getId() + ", " + user.getUserName() + ", " + user.getPassword() + ", " + user.getCountry() + ", " + user.getUserType();
+
+        return line;
     }
 }

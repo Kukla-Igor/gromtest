@@ -6,17 +6,19 @@ import finalProject.exception.UserNotFoundException;
 import finalProject.model.IdEntity;
 import java.io.*;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public abstract class DAO <T extends IdEntity> {
 
+
     abstract T mapTOObject(String[] arr, int numberOfLine) throws InternalServerException;
 
-    abstract void writeToFile(T t, String pathDB) throws InternalServerException;
+    abstract String toString(T t);
 
     public long idGenerator(String pathDB) throws InternalServerException {
-        long id = (long) (Math.random()*Long.MAX_VALUE);
+
+        Random random = new Random();
+        long id = random.nextLong();
         int numberOfLine = 1;
         ArrayList<Long> list = new ArrayList<>();
 
@@ -40,22 +42,14 @@ public abstract class DAO <T extends IdEntity> {
     }
 
     public T findById(long id, String pathDB) throws Exception {
-        String line;
-        T t;
-        int numberOfLine = 1;
 
+        ArrayList<T> list = createList(pathDB);
 
-        try (BufferedReader br = new BufferedReader(new FileReader(pathDB))) {
-            while ((line = br.readLine()) != null) {
-                String[] arr = line.split(",");
-                t = mapTOObject(arr, numberOfLine);
-
+        for (T t:list) {
 
                 if (t.getId() == id){
                     return t;
-                } else
-                    numberOfLine++;
-            }
+                }
         }
         throw new   UserNotFoundException("Object with id " + id + " not found");
 
@@ -63,16 +57,14 @@ public abstract class DAO <T extends IdEntity> {
 
     public T add(T t, String pathDB) throws Exception {
         t.setId(idGenerator(pathDB));
-        String line;
 
+        ArrayList<T> list = createList(pathDB);
 
-        try (BufferedReader br = new BufferedReader(new FileReader(pathDB))) {
-            while ((line = br.readLine()) != null) {
-                if (findById(Long.valueOf(line.substring(0, line.indexOf(','))), pathDB).equals(t))
-                    throw new BadRequestException(t + " already in the database");
+        for (T m:list) {
+
+            if (m.equals(t)){
+                throw new BadRequestException(t + " already in the database");
             }
-        } catch (IOException e) {
-            System.err.println("Can`t read file: " + pathDB);
         }
 
         writeToFile(t, pathDB);
@@ -106,6 +98,35 @@ public abstract class DAO <T extends IdEntity> {
 
         throw new BadRequestException("Object with id: " + Id + " not found");
 
+    }
+
+    void writeToFile(T t, String pathDB) {
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(pathDB, true))) {
+            bw.append("\n");
+            bw.append(toString(t));
+        } catch (IOException e) {
+            System.err.println("Can`t write to file: " + pathDB);
+        }
+    }
+
+    private ArrayList<T> createList (String pathDB) throws Exception{
+        String line;
+        ArrayList<T> list = new ArrayList<>();
+        int numberOfLine = 1;
+
+
+        try (BufferedReader br = new BufferedReader(new FileReader(pathDB))) {
+            while ((line = br.readLine()) != null) {
+                String[] arr = line.split(",");
+                list.add(mapTOObject(arr, numberOfLine));
+                numberOfLine++;
+            }
+        } catch (IOException e) {
+            System.err.println("Can`t read file: " + pathDB);
+        }
+
+        return list;
     }
 }
 

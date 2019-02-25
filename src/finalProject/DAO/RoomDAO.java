@@ -1,5 +1,6 @@
 package finalProject.DAO;
 
+import finalProject.exception.BadRequestException;
 import finalProject.exception.InternalServerException;
 import finalProject.exception.UserNotFoundException;
 import finalProject.model.Filter;
@@ -119,13 +120,11 @@ public class RoomDAO extends DAO {
     }
 
     @Override
-    void writeToFile(IdEntity idEntity, String pathDB)  {
+    String toString(IdEntity idEntity)  {
         Room room = (Room) idEntity;
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(pathDB, true))) {
-            bw.append("\n");
-            bw.append(room.getId() + ", " + room.getNumberOfGuests() + ", " + room.getPrice() + ", " + room.isBreakfastIncluded() + ", " + room.isPetsAllowed() + ", " + room.getDateAvailableFrom() + ", " + room.getHotel());
-        } catch (IOException e) {
-            System.err.println("Can`t write to file: " + pathDB);
-        }
+
+        String line = room.getId() + ", " + room.getNumberOfGuests() + ", " + room.getPrice() + ", " + room.isBreakfastIncluded() + ", " + room.isPetsAllowed() + ", " + new SimpleDateFormat("dd-MM-yyyy").format(room.getDateAvailableFrom()) + ", " + room.getHotel().getId();
+        return line;
+
     }
 }

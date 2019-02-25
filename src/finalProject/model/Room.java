@@ -21,6 +21,15 @@ public class Room extends IdEntity {
         this.hotel = hotel;
     }
 
+    public Room(int numberOfGuests, double price, boolean breakfastIncluded, boolean petsAllowed, Date dateAvailableFrom, Hotel hotel) {
+        this.numberOfGuests = numberOfGuests;
+        this.price = price;
+        this.breakfastIncluded = breakfastIncluded;
+        this.petsAllowed = petsAllowed;
+        this.dateAvailableFrom = dateAvailableFrom;
+        this.hotel = hotel;
+    }
+
 
     public long getId() {
         return id;
@@ -54,6 +63,10 @@ public class Room extends IdEntity {
         this.id = id;
     }
 
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
     @Override
     public String toString() {
         return "Room{" +
@@ -78,8 +91,8 @@ public class Room extends IdEntity {
         if (Double.compare(room.price, price) != 0) return false;
         if (breakfastIncluded != room.breakfastIncluded) return false;
         if (petsAllowed != room.petsAllowed) return false;
-        if (dateAvailableFrom != null ? !dateAvailableFrom.equals(room.dateAvailableFrom) : room.dateAvailableFrom != null)
-            return false;
+//        if (dateAvailableFrom != null ? !dateAvailableFrom.equals(room.dateAvailableFrom) : room.dateAvailableFrom != null)
+//            return false;
         return hotel != null ? hotel.equals(room.hotel) : room.hotel == null;
     }
 
@@ -92,7 +105,7 @@ public class Room extends IdEntity {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (breakfastIncluded ? 1 : 0);
         result = 31 * result + (petsAllowed ? 1 : 0);
-        result = 31 * result + (dateAvailableFrom != null ? dateAvailableFrom.hashCode() : 0);
+//        result = 31 * result + (dateAvailableFrom != null ? dateAvailableFrom.hashCode() : 0);
         result = 31 * result + (hotel != null ? hotel.hashCode() : 0);
         return result;
     }

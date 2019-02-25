@@ -97,8 +97,8 @@ public class OrderDAO extends DAO {
     }
 
     @Override
-    void writeToFile(IdEntity idEntity, String pathDB) throws InternalServerException {
-
+    String toString(IdEntity idEntity) {
+        return null;
     }
 }
 
