@@ -14,12 +14,12 @@ public class UserDAO extends DAO {
 
     public User registerUser(User user) throws Exception{
 
-        return (User) add(user, pathDB);
+        return (User) add(user);
 
     }
 
     @Override
-    IdEntity mapTOObject(String[] arr, int numberOfLine) throws InternalServerException {
+    IdEntity mapTOObject(String[] arr) throws InternalServerException {
         try {
             User user;
             int index = 0;
@@ -32,10 +32,9 @@ public class UserDAO extends DAO {
     }
 
     @Override
-    String toString(IdEntity idEntity) {
-        User user = (User) idEntity;
-        String line = user.getId() + ", " + user.getUserName() + ", " + user.getPassword() + ", " + user.getCountry() + ", " + user.getUserType();
-
-        return line;
+    String path() {
+        return pathDB;
     }
+
+
 }

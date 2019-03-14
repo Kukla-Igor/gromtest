@@ -1,5 +1,6 @@
 package finalProject.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Room extends IdEntity {
@@ -69,15 +70,7 @@ public class Room extends IdEntity {
 
     @Override
     public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", numberOfGuests=" + numberOfGuests +
-                ", price=" + price +
-                ", breakfastIncluded=" + breakfastIncluded +
-                ", petsAllowed=" + petsAllowed +
-                ", dateAvailableFrom=" + dateAvailableFrom +
-                ", hotel=" + hotel +
-                '}';
+        return id + ", " + numberOfGuests + ", " + price + ", " + breakfastIncluded + ", " + petsAllowed+ ", " + new SimpleDateFormat("dd-MM-yyyy").format(dateAvailableFrom) + ", " + this.getHotel().getId();
     }
 
     @Override
@@ -91,8 +84,6 @@ public class Room extends IdEntity {
         if (Double.compare(room.price, price) != 0) return false;
         if (breakfastIncluded != room.breakfastIncluded) return false;
         if (petsAllowed != room.petsAllowed) return false;
-//        if (dateAvailableFrom != null ? !dateAvailableFrom.equals(room.dateAvailableFrom) : room.dateAvailableFrom != null)
-//            return false;
         return hotel != null ? hotel.equals(room.hotel) : room.hotel == null;
     }
 

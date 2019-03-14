@@ -13,21 +13,17 @@ public class HotelDAO extends DAO{
     public Hotel findHotelByName(String name) throws Exception {
         String line;
         Hotel hotel;
-        int numberOfLine = 1;
 
 
         try (BufferedReader br = new BufferedReader(new FileReader(pathDB))) {
             while ((line = br.readLine()) != null) {
-                hotel = searchHotel(line, name, numberOfLine);
+                hotel = searchHotel(line, name);
 
 
                 if (hotel != null && hotel.getName().equals(name)) {
                     return hotel;
-                } else
-                    numberOfLine++;
+                }
             }
-
-
             throw new UserNotFoundException("Hotel " + name + " not found");
         }
     }
@@ -36,18 +32,15 @@ public class HotelDAO extends DAO{
     public Hotel findHotelByCity(String name) throws Exception {
         String line;
         Hotel hotel;
-        int numberOfLine = 1;
-
 
         try (BufferedReader br = new BufferedReader(new FileReader(pathDB))) {
             while ((line = br.readLine()) != null) {
-                hotel = searchHotel(line, name, numberOfLine);
+                hotel = searchHotel(line, name);
 
 
                 if (hotel != null && hotel.getCity().equals(name)) {
                     return hotel;
-                } else
-                    numberOfLine++;
+                }
             }
 
 
@@ -56,42 +49,40 @@ public class HotelDAO extends DAO{
     }
 
     public Hotel addHotel(Hotel hotel) throws Exception{
-        return (Hotel) add(hotel, pathDB);
+        return (Hotel) add(hotel);
     }
 
     public void deleteHotel (long hotelId) throws Exception{
-        delete(hotelId, pathDB);
+        delete(hotelId);
     }
 
-    private Hotel searchHotel(String line, String search, int numberOfLine) throws InternalServerException{
+    private Hotel searchHotel(String line, String search) throws InternalServerException{
         if (!line.contains(search))
             return null;
 
         String[] arr = line.split(",");
 
 
-        return (Hotel) mapTOObject(arr, numberOfLine);
+        return (Hotel) mapTOObject(arr);
     }
 
     @Override
-    IdEntity mapTOObject(String[] arr, int numberOfLine) throws InternalServerException {
+    IdEntity mapTOObject(String[] arr) throws InternalServerException {
         Hotel hotel;
         int index = 0;
         try {
             hotel = new Hotel(arr[++index].trim(), arr[++index].trim(), arr[++index].trim(), arr[++index].trim());
             hotel.setId(Long.valueOf(arr[0]));
         } catch (Exception e) {
-            throw new InternalServerException("Invalid data in line " + numberOfLine + " of the file " + new File(pathDB).getName());
+            throw new InternalServerException("Invalid data of the file " + new File(pathDB).getName());
         }
         return hotel;
 
     }
-
     @Override
-    String toString(IdEntity idEntity){
-        Hotel hotel = (Hotel) idEntity;
-        String line =hotel.getId() + ", " + hotel.getName() + ", " + hotel.getCountry() + ", " + hotel.getCity() + ", " + hotel.getStreet();
-       return line;
+    String path() {
+        return pathDB;
     }
+
 }
 

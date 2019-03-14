@@ -5,20 +5,17 @@ import finalProject.exception.InternalServerException;
 import finalProject.exception.UserNotFoundException;
 import finalProject.model.IdEntity;
 import java.io.*;
-import java.nio.file.Files;
 import java.util.*;
 
-public abstract class DAO <T extends IdEntity> {
+public abstract class DAO<T extends IdEntity> {
+    abstract T mapTOObject(String[] arr) throws InternalServerException;
+    abstract String path();
 
 
-    abstract T mapTOObject(String[] arr, int numberOfLine) throws InternalServerException;
+    public long idGenerator() throws InternalServerException {
 
-    abstract String toString(T t);
-
-    public long idGenerator(String pathDB) throws InternalServerException {
-
-        Random random = new Random();
-        long id = random.nextLong();
+        String pathDB = path();
+        long id =Math.round(Math.random()*Long.MAX_VALUE);
         int numberOfLine = 1;
         ArrayList<Long> list = new ArrayList<>();
 
@@ -35,92 +32,95 @@ public abstract class DAO <T extends IdEntity> {
 
 
         if (list.contains(id))
-            id = idGenerator(pathDB);
+            id = idGenerator();
 
 
         return id;
     }
 
-    public T findById(long id, String pathDB) throws Exception {
+    public T findById(long id) throws Exception {
 
-        ArrayList<T> list = createList(pathDB);
+        ArrayList<T> list = createList();
 
-        for (T t:list) {
+        for (T t : list) {
 
-                if (t.getId() == id){
-                    return t;
-                }
+            if (t.getId() == id) {
+                return t;
+            }
         }
-        throw new   UserNotFoundException("Object with id " + id + " not found");
+        throw new UserNotFoundException("Object with id " + id + " not found");
 
     }
 
-    public T add(T t, String pathDB) throws Exception {
-        t.setId(idGenerator(pathDB));
+    public T add(T t) throws Exception {
+        t.setId(idGenerator());
+        ArrayList<T> list = createList();
 
-        ArrayList<T> list = createList(pathDB);
+        for (T m : list) {
 
-        for (T m:list) {
-
-            if (m.equals(t)){
+            if (t.equals(m)) {
                 throw new BadRequestException(t + " already in the database");
             }
         }
 
-        writeToFile(t, pathDB);
-
+        writeToFile(t);
         return t;
     }
 
-    public void delete(long Id, String pathDB) throws Exception {
-        File file = new File(pathDB);
-        T t;
-        int numberOfLine = 1;
+    public void delete(long id) throws Exception {
 
 
-        List<String> fileContent = new ArrayList<>(Files.readAllLines(file.toPath()));
-        for (int i = 0; i < fileContent.size(); i++) {
-            String[] arr = fileContent.get(i).split(",");
+        ArrayList<T> list = createList();
 
-            try {
-                t = mapTOObject(arr, numberOfLine);
+        for (int i = 0; i < list.size(); i++) {
 
-
-                if (t.getId() == Id) {
-                    fileContent.remove(i);
-                    Files.write(file.toPath(), fileContent);
-                    return;
-                }
-            } catch (Exception e) {
-                throw new InternalServerException("Invalid data in line " + numberOfLine + " of the file " + new File(pathDB).getName());
+            if (id == list.get(i).getId()) {
+                list.remove(i);
+                reWriter(list);
+                return;
             }
         }
 
-        throw new BadRequestException("Object with id: " + Id + " not found");
-
+        throw new BadRequestException("Object with id: " + id + " not found");
     }
 
-    void writeToFile(T t, String pathDB) {
+    private void reWriter(ArrayList list){
+        String pathDB = path();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(pathDB))) {
+            for (int i = 0; i < list.size() - 1; i++) {
+                bw.append(list.get(i).toString());
+                bw.append('\n');
+            }
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(pathDB, true))) {
-            bw.append("\n");
-            bw.append(toString(t));
+            bw.append((list.get(list.size() - 1).toString()));
         } catch (IOException e) {
             System.err.println("Can`t write to file: " + pathDB);
         }
     }
 
-    private ArrayList<T> createList (String pathDB) throws Exception{
+
+
+    void writeToFile(T t) {
+        String pathDB = path();
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(pathDB, true))) {
+            bw.append("\n");
+            bw.append(t.toString());
+        } catch (IOException e) {
+            System.err.println("Can`t write to file: " + pathDB);
+        }
+    }
+
+    private ArrayList<T> createList() throws Exception {
+        String pathDB = path();
         String line;
         ArrayList<T> list = new ArrayList<>();
-        int numberOfLine = 1;
 
 
         try (BufferedReader br = new BufferedReader(new FileReader(pathDB))) {
             while ((line = br.readLine()) != null) {
                 String[] arr = line.split(",");
-                list.add(mapTOObject(arr, numberOfLine));
-                numberOfLine++;
+                list.add(mapTOObject(arr));
             }
         } catch (IOException e) {
             System.err.println("Can`t read file: " + pathDB);

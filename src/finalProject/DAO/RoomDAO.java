@@ -17,7 +17,6 @@ import java.util.List;
 
 public class RoomDAO extends DAO {
     private String pathDB = "G://Работа//Java//Gromcod//Java Core//Final Project//BD//RoomBD.txt";
-    private String pathHotelDB = "G://Работа//Java//Gromcod//Java Core//Final Project//BD//HotelBD.txt";
 
 
     public ArrayList<Room> findRooms(Filter filter) throws Exception {
@@ -32,7 +31,7 @@ public class RoomDAO extends DAO {
             while ((line = br.readLine()) != null) {
                 String[] arr = line.split(",");
                 int i = 0;
-                Hotel hotel = (Hotel) hotelDAO.findById(Long.valueOf(arr[arr.length - 1].trim()), pathHotelDB);
+                Hotel hotel = (Hotel) hotelDAO.findById(Long.valueOf(arr[arr.length - 1].trim()));
                 SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
 
 
@@ -84,12 +83,12 @@ public class RoomDAO extends DAO {
 
     public Room addRoom(Room room) throws Exception {
 
-        return (Room) add(room, pathDB);
+        return (Room) add(room);
     }
 
 
     public void deleteRoom(long roomId) throws Exception {
-        delete(roomId, pathDB);
+        delete(roomId);
     }
 
 
@@ -108,11 +107,11 @@ public class RoomDAO extends DAO {
     }
 
     @Override
-    IdEntity mapTOObject(String[] arr, int numberOfLine) throws InternalServerException {
+    IdEntity mapTOObject(String[] arr) throws InternalServerException {
         Room room;
         int index = 0;
         try {
-            room = new Room(Long.valueOf(arr[index]), Integer.valueOf(arr[++index].trim()), Double.valueOf(arr[++index].trim()), Boolean.valueOf(arr[++index].trim()), Boolean.valueOf(arr[++index].trim()), new SimpleDateFormat("dd-MM-yyyy").parse(arr[++index]), (Hotel) new HotelDAO().findById(Long.valueOf(arr[++index].trim()), pathHotelDB));
+            room = new Room(Long.valueOf(arr[index]), Integer.valueOf(arr[++index].trim()), Double.valueOf(arr[++index].trim()), Boolean.valueOf(arr[++index].trim()), Boolean.valueOf(arr[++index].trim()), new SimpleDateFormat("dd-MM-yyyy").parse(arr[++index]), (Hotel) new HotelDAO().findById(Long.valueOf(arr[++index].trim())));
             return room;
         } catch (Exception e) {
             throw new InternalServerException("Invalid data in line " + arr[0] + " of the file " + new File(pathDB).getName());
@@ -120,11 +119,9 @@ public class RoomDAO extends DAO {
     }
 
     @Override
-    String toString(IdEntity idEntity)  {
-        Room room = (Room) idEntity;
-
-        String line = room.getId() + ", " + room.getNumberOfGuests() + ", " + room.getPrice() + ", " + room.isBreakfastIncluded() + ", " + room.isPetsAllowed() + ", " + new SimpleDateFormat("dd-MM-yyyy").format(room.getDateAvailableFrom()) + ", " + room.getHotel().getId();
-        return line;
-
+    String path() {
+        return pathDB;
     }
+
+
 }

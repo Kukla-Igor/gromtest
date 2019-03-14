@@ -10,10 +10,12 @@ public class HotelDemo {
 //        System.out.println(hotelController.findHotelByName("Fregat"));
 //        System.out.println(hotelController.findHotelByCity("Kherson"));
 
-        Hotel hotel = new Hotel("Sea2", "Greece", "Odessa", "Kanatnaya");
+        Hotel hotel = new Hotel("Sea2", "Greece", "Poltava", "Kanatnaya");
 
-        System.out.println(hotelController.addHotel(hotel));
+        //System.out.println(hotelController.addHotel(hotel));
 
-        //hotelController.deleteHotel((long) 3);
+
+
+        hotelController.deleteHotel( (long) 555);
     }
 }
